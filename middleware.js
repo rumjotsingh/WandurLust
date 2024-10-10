@@ -53,7 +53,7 @@ module.exports.validateReview=(req,res,next)=>{
   let { id,reviewId }=req.params;
   let review=await Review.findById(reviewId);
   if(!review.author.equals(res.locals.CurrUser._id)){
-      req.flash("error","You  are not th eauthor of review ");
+      req.flash("error","You  are not the author of review ");
       return res.redirect(`/listings/${id}`);
   } 
   next();
