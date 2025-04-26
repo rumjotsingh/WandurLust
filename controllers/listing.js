@@ -2,7 +2,7 @@ const Listing=require("../models/listing");
 module.exports.index = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 3;
+    const limit = parseInt(req.query.limit) || 9;
     const skip = (page - 1) * limit;
 
     const allListings = await Listing.find({}).skip(skip).limit(limit).lean();
