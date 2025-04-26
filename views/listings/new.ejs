@@ -1,51 +1,173 @@
-<%layout("/layouts/boilerplate")%>
-    <br>
-    <BR>
-    
-    <div class="row">
-        <h2>Create New Listing</h2>
-        <div class="col-8 offset-2">
-    <form method="post" action="/listings"  class="needs-validation"  novalidate enctype="multipart/form-data" > 
-        <div class="mb-3"> 
-            <label for="title " class="form-label">Title</label>
-            <input placeholder="Add a catchy Title" name="listing[title]" type="text" class="form-control" required>
-            <div class="valid-feedback">Title looks good</div>
-        </div>
-        
-       
-      
-      <div class="mb-3">
-        <label for="description " class="form-label">Description</label>
-        <textarea  name="listing[description]" type="text" class="form-control" required></textarea>
-        <div class="invalid-feedback">Please enter a short description</div>
-      </div>
-     
-      
-       <div class="mb-3">
-        <label for="image" class="form-label"> Upload  listing Image </label>
-        <input  name="listing[image]" type="file"  class="form-control" required>
-       </div>
-       
-      <div class="mb-3">
-        <label for="loaction" class="form-label">Loaction</label>
-        <input placeholder="Jaipur,Rajasthan" name="listing[location]" type="text" class="form-control" required>
-      <div class="invalid-feedback">Location should be valid </div>
-     </div>
-      <div class="row">
-      <div class="mb-3  col-md-8">
-        <label for="country" class="form-label">Country</label>
-        <input placeholder="India" name="listing[country]" type="text" class="form-control" required >
-        <div class="invalid-feedback">Country  name should be valid</div>
-      </div>
-      <div class="mb-3 col-md-4" >
-        <label for="price" class="form-label">Price</label>
-        <input placeholder="1200" name="listing[price]"  class="form-control" required >
-        <div class="invalid-feedback">Price should be valid</div>
-       </div>
-       </div>
-       <button class="btn btn-dark add-btn mt-3">Add</button>
-    </form>
-   <br>
-    </div>
-    </div>
+<% layout("/layouts/boilerplate") %>
 
+<style>
+    #filters {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 1rem;
+        align-items: center;
+    }
+    .filters {
+        margin-right: 2.15rem;
+        text-align: center;
+        margin-top: 2rem;
+        opacity: 0.7;
+    }
+    .filters p {
+        font-size: 0.8rem;
+    }
+    .filters:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+    .tax-info {
+        display: none;
+    }
+    .tax-toggle {
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 1.5rem;
+        padding: 1rem;
+        margin-left: 5rem;
+        display: flex;
+        align-items: center;
+    }
+    .listing-card img {
+        height: 20rem;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .pagination-btn {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 0 5px;
+        background-color: #f1f1f1;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    
+    .pagination-btn:hover {
+        background-color: #ddd;
+    }
+    
+    .pagination-btn.active {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    .pagination-btn.prev,
+    .pagination-btn.next {
+        background-color: #007bff;
+        color: #fff;
+    }
+    
+    .pagination-btn.prev:hover,
+    .pagination-btn.next:hover {
+        background-color: #0056b3;
+    }
+    
+    .dots {
+        font-size: 14px;
+        color: #333;
+        margin: 0 5px;
+    }
+    
+</style>
+
+<div id="filters">
+    <!-- Filter Section -->
+    <!-- (Your filter code remains the same) -->
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for (let listings of allListings) { %>
+        <div class="card cols listing-card">
+            <a href="/listings/<%= listings._id %>" class="listing-link">
+                <img data-src="<%= listings.image.url %>" class="card-img-top lazy-load" alt="listing_image">
+                <div class="card-body">
+                    <p class="card-text">
+                        <%= listings.title %><br>
+                        &#8377;<%= listings.price.toLocaleString("en-IN") %>
+                        <i class="tax-info"> +18% GST:</i>
+                        <i class="tax-info"> Total price = <%= listings.price * 0.18 + listings.price %></i>
+                    </p>
+                </div>
+            </a>
+        </div>
+    <% } %>
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+    <!-- Previous Button -->
+    <% if (currentPage > 1) { %>
+        <a href="/listings?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="pagination-btn prev">Previous</a>
+    <% } %>
+
+    <!-- Page Number Links -->
+    <% let startPage = Math.max(currentPage - 2, 1); %>
+    <% let endPage = Math.min(currentPage + 2, totalPages); %>
+
+    <% if (startPage > 1) { %>
+        <a href="/listings?page=1&limit=<%= limit %>" class="pagination-btn">1</a>
+        <% if (startPage > 2) { %>
+            <span class="dots">...</span>
+        <% } %>
+    <% } %>
+
+    <% for (let page = startPage; page <= endPage; page++) { %>
+        <a href="/listings?page=<%= page %>&limit=<%= limit %>" class="pagination-btn <%= currentPage === page ? 'active' : '' %>"><%= page %></a>
+    <% } %>
+
+    <% if (endPage < totalPages) { %>
+        <% if (endPage < totalPages - 1) { %>
+            <span class="dots">...</span>
+        <% } %>
+        <a href="/listings?page=<%= totalPages %>&limit=<%= limit %>" class="pagination-btn"><%= totalPages %></a>
+    <% } %>
+
+    <!-- Next Button -->
+    <% if (currentPage < totalPages) { %>
+        <a href="/listings?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="pagination-btn next">Next</a>
+    <% } %>
+</div>
+
+
+<script>
+// Lazy Load Implementation
+let lazyImages = document.querySelectorAll('img.lazy-load');
+
+let observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            let img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy-load');
+            observer.unobserve(img);
+        }
+    });
+}, { threshold: 0.1 });
+
+lazyImages.forEach(image => {
+    observer.observe(image);
+});
+
+// Tax Info Toggle
+let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+taxSwitch.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (let info of taxInfo) {
+        info.style.display = (info.style.display !== "inline") ? "inline" : "none";
+    }
+});
+</script>
