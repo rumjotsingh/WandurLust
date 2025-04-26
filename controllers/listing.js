@@ -1,8 +1,26 @@
 const Listing=require("../models/listing");
-module.exports.index=async (req,res)=>{
-    let allistings=await Listing.find({});
-    res.render("listings/index.ejs", { allistings });
- };
+module.exports.index = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 3;
+    const skip = (page - 1) * limit;
+
+    const allListings = await Listing.find({}).skip(skip).limit(limit).lean();
+    const totalCount = await Listing.countDocuments({});
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.render("listings/index.ejs", {
+      allListings,
+      currentPage: page,
+      totalPages,
+      totalCount,
+      limit,
+    });
+  } catch (error) {
+    console.error("Error fetching listings:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
  module.exports.new=(req,res)=>{
     if(!req.isAuthenticated()){
        req.flash("error","you must be logged in create new listing" );
