@@ -1,0 +1,310 @@
+<%layout("/layouts/boilerplate")%>
+
+<style>
+    .auth-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+    }
+    
+    .auth-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 480px;
+        width: 100%;
+        animation: fadeInUp 0.6s ease;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .auth-header {
+        background: var(--black);
+        color: var(--white);
+        padding: 3rem 2.5rem;
+        text-align: center;
+    }
+    
+    .auth-header h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -1px;
+    }
+    
+    .auth-header p {
+        margin: 0.75rem 0 0 0;
+        opacity: 0.7;
+        font-size: 0.95rem;
+    }
+    
+    .auth-body {
+        padding: 2.5rem;
+    }
+    
+    /* Demo Banner - Black & White */
+    .demo-banner {
+        background: var(--gray-900);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .demo-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--white);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--black);
+        font-size: 1.5rem;
+    }
+
+    .demo-content {
+        flex: 1;
+    }
+
+    .demo-content h5 {
+        color: var(--white);
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+
+    .demo-content p {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    .btn-demo {
+        background: var(--white);
+        color: var(--black);
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.25rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .btn-demo:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+    }
+
+    .divider {
+        text-align: center;
+        margin: 2rem 0;
+        position: relative;
+    }
+
+    .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--gray-200);
+    }
+
+    .divider span {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 0 1rem;
+        color: var(--gray-500);
+        font-size: 0.85rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+        font-weight: 600;
+        color: var(--black);
+        margin-bottom: 0.5rem;
+        display: block;
+        font-size: 0.9rem;
+        letter-spacing: -0.2px;
+    }
+    
+    .form-control {
+        border-radius: 12px;
+        border: 1px solid var(--gray-300);
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: rgba(0, 0, 0, 0.02);
+    }
+    
+    .form-control:focus {
+        border-color: var(--black);
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        background: var(--white);
+    }
+    
+    .btn-auth {
+        width: 100%;
+        background: var(--black);
+        color: var(--white);
+        border: none;
+        border-radius: 12px;
+        padding: 0.875rem;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        letter-spacing: -0.2px;
+    }
+    
+    .btn-auth:hover {
+        background: var(--gray-800);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        color: var(--white);
+    }
+    
+    .auth-footer {
+        text-align: center;
+        padding: 1.5rem 2.5rem;
+        background: var(--gray-50);
+        border-top: 1px solid var(--gray-200);
+    }
+    
+    .auth-footer p {
+        margin: 0;
+        color: var(--gray-600);
+        font-size: 0.95rem;
+    }
+    
+    .auth-footer a {
+        color: var(--black);
+        font-weight: 600;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .auth-footer a:hover {
+        opacity: 0.7;
+    }
+    
+    @media (max-width: 576px) {
+        .auth-header h1 {
+            font-size: 1.75rem;
+        }
+        
+        .auth-body {
+            padding: 2rem 1.5rem;
+        }
+        
+        .auth-header {
+            padding: 2.5rem 1.5rem;
+        }
+
+        .demo-banner {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .btn-demo {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue your journey</p>
+        </div>
+        
+        <div class="auth-body">
+            <!-- Demo Banner -->
+            <div class="demo-banner">
+                <div class="demo-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="demo-content">
+                    <h5>Try Demo Account</h5>
+                    <p>Experience WandurLust instantly</p>
+                </div>
+                <button type="button" class="btn-demo" onclick="fillDemoCredentials()">
+                    <i class="fa-solid fa-arrow-right"></i> Quick Demo
+                </button>
+            </div>
+
+            <div class="divider">
+                <span>or sign in with your account</span>
+            </div>
+            
+            <form action="/login" method="post" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input name="username" id="username" type="text" class="form-control" placeholder="Enter your username" required>
+                    <div class="invalid-feedback">Please enter your username.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input name="password" id="password" type="password" class="form-control" placeholder="Enter your password" required>
+                    <div class="invalid-feedback">Please enter your password.</div>
+                </div>
+                
+                <button class="btn btn-auth">
+                    Sign In
+                </button>
+            </form>
+        </div>
+        
+        <div class="auth-footer">
+            <p>Don't have an account? <a href="/signup">Create one</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fillDemoCredentials() {
+        // Fill in the demo credentials
+        document.getElementById('username').value = 'demo';
+        document.getElementById('password').value = 'demo123';
+        
+        const demoBtn = document.querySelector('.btn-demo');
+        const originalHTML = demoBtn.innerHTML;
+        
+        // Show success state
+        demoBtn.innerHTML = '<i class="fa-solid fa-check"></i> Ready!';
+        demoBtn.style.background = 'var(--gray-200)';
+        
+        // Auto-submit the form after a brief moment
+        setTimeout(() => {
+            document.querySelector('form[action="/login"]').submit();
+        }, 500);
+    }
+</script>

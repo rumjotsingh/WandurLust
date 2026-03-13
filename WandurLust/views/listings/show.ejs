@@ -1,0 +1,1004 @@
+<%layout("/layouts/boilerplate")%>
+
+<style>
+    /* Ultra Premium Listing Detail - Airbnb/Apple Style */
+    .show-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem 4rem;
+    }
+
+    /* Premium Header */
+    .listing-header {
+        margin: 2rem 0;
+        animation: fadeInDown 0.6s ease;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .listing-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #000000;
+        margin-bottom: 1rem;
+        letter-spacing: -1px;
+    }
+
+    .listing-meta {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 0.95rem;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .category-badge {
+        background: rgba(0, 0, 0, 0.08);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        font-weight: 600;
+        color: #000000;
+        font-size: 0.9rem;
+    }
+
+    /* Premium Image Gallery */
+    .image-gallery {
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .main-image {
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+
+    .main-image:hover {
+        transform: scale(1.02);
+    }
+
+    /* Content Grid */
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 4rem;
+        margin-bottom: 3rem;
+    }
+
+    /* Details Section */
+    .details-section {
+        animation: fadeInLeft 0.6s ease;
+    }
+
+    @keyframes fadeInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .host-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .host-avatar {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .host-details h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #000000;
+        margin: 0;
+        letter-spacing: -0.5px;
+    }
+
+    .host-details p {
+        color: rgba(0, 0, 0, 0.6);
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Property Stats */
+    .property-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .stat-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+    }
+
+    .stat-item i {
+        font-size: 2rem;
+        color: #000000;
+        display: block;
+        margin-bottom: 0.75rem;
+    }
+
+    .stat-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 0.25rem;
+    }
+
+    /* Description */
+    .description-section {
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 1rem;
+        letter-spacing: -0.5px;
+    }
+
+    .description-text {
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.8;
+        font-size: 1rem;
+    }
+
+    /* Amenities */
+    .amenities-section {
+        padding: 2rem 0;
+    }
+
+    .amenities-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .amenity-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .amenity-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: translateX(4px);
+    }
+
+    .amenity-item i {
+        width: 32px;
+        height: 32px;
+        background: #000000;
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    /* Price Card - Sticky */
+    .price-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 24px;
+        padding: 2rem;
+        position: sticky;
+        top: 120px;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+        animation: fadeInRight 0.6s ease;
+    }
+
+    @keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .price-highlight {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #000000;
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+
+    .price-period {
+        font-size: 1rem;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    .price-breakdown {
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        margin: 1.5rem 0;
+    }
+
+    .price-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .price-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #000000;
+        margin-top: 1rem;
+    }
+
+
+
+    /* Owner Actions */
+    .owner-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-edit, .btn-delete {
+        flex: 1;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-edit {
+        background: #000000;
+        color: white;
+        border: none;
+        text-decoration: none;
+    }
+
+    .btn-edit:hover {
+        background: #1a1a1a;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .btn-delete {
+        background: transparent;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+
+    .btn-delete:hover {
+        background: #dc3545;
+        color: white;
+    }
+
+    /* Reviews Section */
+    .reviews-section {
+        margin-top: 4rem;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .reviews-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .reviews-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        letter-spacing: -1px;
+    }
+
+    .reviews-count {
+        background: #000000;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .btn-add-review {
+        background: #000000;
+        color: white;
+        border: none;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn-add-review:hover {
+        background: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Premium Review Modal */
+    .review-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 10000;
+        padding: 2rem;
+        overflow-y: auto;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .review-modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .review-modal-content {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 24px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .review-modal-header {
+        background: #000000;
+        color: white;
+        padding: 2rem 2.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .review-modal-header h3 {
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .btn-close-modal {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-close-modal:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+
+    .review-modal-body {
+        padding: 2.5rem;
+    }
+
+    .form-group-modal {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label-modal {
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 0.75rem;
+        display: block;
+        font-size: 0.95rem;
+        letter-spacing: -0.2px;
+    }
+
+    .form-control-modal {
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: rgba(0, 0, 0, 0.02);
+        width: 100%;
+        color: #000000;
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-control-modal:focus {
+        border-color: #000000;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        background: white;
+        outline: none;
+    }
+
+    .btn-submit-review {
+        width: 100%;
+        background: #000000;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-submit-review:hover {
+        background: #1a1a1a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Review Cards */
+    .review-card {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .review-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .review-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        background: #000000;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+
+    .author-name {
+        font-weight: 700;
+        color: #000000;
+        margin: 0;
+    }
+
+    .review-date {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 0.85rem;
+    }
+
+    .review-rating {
+        display: flex;
+        gap: 0.25rem;
+    }
+
+    .review-rating i {
+        color: #000000;
+        font-size: 0.9rem;
+    }
+
+    .review-comment {
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .btn-delete-review {
+        background: transparent;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #000000;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete-review:hover {
+        background: #000000;
+        color: white;
+        border-color: #000000;
+    }
+
+    /* No Reviews */
+    .no-reviews {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 20px;
+    }
+
+    .no-reviews i {
+        font-size: 4rem;
+        color: rgba(0, 0, 0, 0.2);
+        margin-bottom: 1rem;
+    }
+
+    .no-reviews h5 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-reviews p {
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .content-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .price-card {
+            position: relative;
+            top: 0;
+        }
+
+        .property-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .show-container {
+            padding: 0 1rem 3rem;
+        }
+
+        .listing-title {
+            font-size: 2rem;
+        }
+
+        .main-image {
+            height: 400px;
+            border-radius: 16px;
+        }
+
+        .image-gallery {
+            border-radius: 16px;
+        }
+
+        .property-stats {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            padding: 1rem;
+        }
+
+        .amenities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .owner-actions {
+            flex-direction: column;
+        }
+
+        .reviews-title {
+            font-size: 1.5rem;
+        }
+
+        .review-card {
+            padding: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .listing-title {
+            font-size: 1.75rem;
+        }
+
+        .main-image {
+            height: 300px;
+        }
+
+        .price-highlight {
+            font-size: 2rem;
+        }
+
+        .property-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="show-container">
+    <!-- Header -->
+    <div class="listing-header">
+        <h1 class="listing-title"><%= listing.title %></h1>
+        <div class="listing-meta">
+            <div class="meta-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span><%= listing.location %>, <%= listing.country %></span>
+            </div>
+            <% if (listing.category) { %>
+                <span class="category-badge">
+                    <i class="fa-solid fa-tag"></i> <%= listing.category %>
+                </span>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+        <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="main-image">
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+        <!-- Details Section -->
+        <div class="details-section">
+            <!-- Host Info -->
+            <div class="host-info">
+                <div class="host-avatar">
+                    <%= listing.owner.username.charAt(0).toUpperCase() %>
+                </div>
+                <div class="host-details">
+                    <h3>Hosted by <%= listing.owner.username %></h3>
+                    <p>Superhost · Joined in 2024</p>
+                </div>
+            </div>
+
+            <!-- Property Stats -->
+            <div class="property-stats">
+                <div class="stat-item">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="stat-value"><%= listing.guests || 2 %></div>
+                    <div class="stat-label">Guests</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-door-open"></i>
+                    <div class="stat-value"><%= listing.bedrooms || 1 %></div>
+                    <div class="stat-label">Bedrooms</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-bed"></i>
+                    <div class="stat-value"><%= listing.beds || 1 %></div>
+                    <div class="stat-label">Beds</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-bath"></i>
+                    <div class="stat-value"><%= listing.bathrooms || 1 %></div>
+                    <div class="stat-label">Baths</div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="description-section">
+                <h2 class="section-title">About this place</h2>
+                <p class="description-text"><%= listing.description %></p>
+            </div>
+
+            <!-- Amenities -->
+            <% if (listing.amenities && listing.amenities.length > 0) { %>
+                <div class="amenities-section">
+                    <h2 class="section-title">What this place offers</h2>
+                    <div class="amenities-grid">
+                        <% listing.amenities.forEach(amenity => { %>
+                            <div class="amenity-item">
+                                <i class="fa-solid fa-check"></i>
+                                <span><%= amenity %></span>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            <% } %>
+
+            <!-- Owner Actions -->
+            <% if(CurrUser && listing.owner._id.equals(CurrUser._id)) { %>
+                <div class="owner-actions">
+                    <a href="/listings/<%=listing.id%>/edit" class="btn-edit">
+                        <i class="fa-solid fa-pen"></i> Edit Listing
+                    </a>
+                    <form method="post" action="/listings/<%=listing.id%>?_method=DELETE" style="flex: 1; margin: 0;">
+                        <button class="btn-delete" style="width: 100%;">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Price Card -->
+        <div class="price-card">
+            <div>
+                <span class="price-highlight">₹<%= listing.price.toLocaleString("en-IN") %></span>
+                <span class="price-period">/ night</span>
+            </div>
+
+            <div class="price-breakdown">
+                <div class="price-row">
+                    <span>Base price</span>
+                    <span>₹<%= listing.price.toLocaleString("en-IN") %></span>
+                </div>
+                <div class="price-row">
+                    <span>Taxes (18%)</span>
+                    <span>₹<%= (listing.price * 0.18).toLocaleString("en-IN") %></span>
+                </div>
+            </div>
+
+            <div class="price-total">
+                <span>Total</span>
+                <span>₹<%= (listing.price * 1.18).toLocaleString("en-IN") %></span>
+            </div>
+
+            <p style="text-align: center; color: rgba(0, 0, 0, 0.6); font-size: 0.9rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0, 0, 0, 0.08);">
+                <i class="fa-solid fa-info-circle"></i> Contact host for booking
+            </p>
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        <div class="reviews-header">
+            <h2 class="reviews-title">
+                <i class="fa-solid fa-star"></i>
+                Guest Reviews
+                <span class="reviews-count"><%= listing.reviews.length %></span>
+            </h2>
+            <% if(CurrUser) { %>
+                <button class="btn-add-review" onclick="openReviewModal()">
+                    <i class="fa-solid fa-plus"></i> Write Review
+                </button>
+            <% } %>
+        </div>
+
+        <!-- Reviews List -->
+        <% if(listing.reviews.length > 0) { %>
+            <% for(review of listing.reviews) { %>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">
+                                <%= review.author.username.charAt(0).toUpperCase() %>
+                            </div>
+                            <div>
+                                <h6 class="author-name">@<%= review.author.username %></h6>
+                                <p class="review-date">Recently</p>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            <% for(let i = 0; i < review.rating; i++) { %>
+                                <i class="fa-solid fa-star"></i>
+                            <% } %>
+                        </div>
+                    </div>
+                    <p class="review-comment"><%= review.comment %></p>
+                    <% if(CurrUser && review.author._id.equals(CurrUser._id)) { %>
+                        <form method="post" action="/listings/<%= listing.id%>/reviews/<%=review._id%>?_method=DELETE" style="margin: 0;">
+                            <button class="btn-delete-review">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    <% } %>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="no-reviews">
+                <i class="fa-regular fa-comment-dots"></i>
+                <h5>No reviews yet</h5>
+                <p>Be the first to share your experience!</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<!-- Premium Review Modal -->
+<% if(CurrUser) { %>
+<div class="review-modal" id="reviewModal" onclick="handleModalClick(event)">
+    <div class="review-modal-content" onclick="event.stopPropagation()">
+        <div class="review-modal-header">
+            <h3>Write a Review</h3>
+            <button class="btn-close-modal" onclick="closeReviewModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="review-modal-body">
+            <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
+                <div class="form-group-modal">
+                    <label for="rating" class="form-label-modal">Rating</label>
+                    <fieldset class="starability-slot">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
+                <div class="form-group-modal">
+                    <label for="comment" class="form-label-modal">Your Review</label>
+                    <textarea 
+                        name="review[comment]" 
+                        id="comment" 
+                        class="form-control-modal" 
+                        placeholder="Share your experience with this property..." 
+                        required
+                    ></textarea>
+                    <div class="invalid-feedback">Please add your review</div>
+                </div>
+                <button type="submit" class="btn-submit-review">
+                    <i class="fa-solid fa-paper-plane"></i> Submit Review
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<script>
+    function openReviewModal() {
+        document.getElementById('reviewModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeReviewModal() {
+        document.getElementById('reviewModal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function handleModalClick(e) {
+        if (e.target.id === 'reviewModal') {
+            closeReviewModal();
+        }
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeReviewModal();
+        }
+    });
+</script>

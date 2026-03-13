@@ -1,0 +1,288 @@
+<style>
+  /* Ultra Premium Footer - Black & White */
+  .premium-footer {
+    background: var(--gray-900);
+    color: var(--white);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4rem 0 2rem;
+    margin-top: auto;
+  }
+
+  .footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-section h5 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .footer-links a:hover {
+    color: var(--white);
+    transform: translateX(4px);
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-brand-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    font-size: 1.25rem;
+  }
+
+  .footer-brand h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-description {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--black);
+    transform: translateY(-3px);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-bottom-left {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+  }
+
+  .footer-bottom-right {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom-right a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-bottom-right a:hover {
+    color: var(--white);
+  }
+
+  .language-currency {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .lang-btn, .currency-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lang-btn:hover, .currency-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--white);
+  }
+
+  @media (max-width: 768px) {
+    .premium-footer {
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-content {
+      padding: 0 1rem;
+    }
+
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footer-bottom-right {
+      justify-content: center;
+    }
+
+    .language-currency {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<footer class="premium-footer">
+  <div class="footer-content">
+    <div class="footer-grid">
+      <!-- Brand Section -->
+      <div class="footer-section">
+        <div class="footer-brand">
+          <div class="footer-brand-icon">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <h4>WandurLust</h4>
+        </div>
+        <p class="footer-description">
+          Discover unique places to stay and things to do around the world.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="#" class="social-link" aria-label="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-section">
+        <h5>Company</h5>
+        <ul class="footer-links">
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/press">Press</a></li>
+          <li><a href="/blog">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-section">
+        <h5>Support</h5>
+        <ul class="footer-links">
+          <li><a href="/help">Help Center</a></li>
+          <li><a href="/safety">Safety</a></li>
+          <li><a href="/cancellation">Cancellation</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer-section">
+        <h5>Legal</h5>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms of Service</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/cookies">Cookie Policy</a></li>
+          <li><a href="/sitemap">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        © <%= new Date().getFullYear() %> WandurLust, Inc. All rights reserved.
+      </div>
+      
+      <div class="language-currency">
+        <button class="lang-btn">
+          <i class="fa-solid fa-globe"></i>
+          <span>English (US)</span>
+        </button>
+        <button class="currency-btn">
+          <span>$ USD</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>

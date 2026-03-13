@@ -1,0 +1,53 @@
+<%layout("/layouts/boilerplate")%>
+
+<style>
+    .static-page {
+        max-width: 900px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+    }
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #222222;
+    }
+    .coming-soon {
+        text-align: center;
+        padding: 5rem 2rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 16px;
+    }
+    .coming-soon i {
+        font-size: 5rem;
+        color: #fe424d;
+        margin-bottom: 2rem;
+    }
+    .coming-soon h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    .coming-soon p {
+        color: #717171;
+        font-size: 1.1rem;
+    }
+</style>
+
+<div class="static-page">
+    <div class="page-header">
+        <h1><i class="fa-solid fa-briefcase"></i> Careers</h1>
+    </div>
+
+    <div class="coming-soon">
+        <i class="fa-solid fa-users"></i>
+        <h2>Join Our Team</h2>
+        <p>We're always looking for talented individuals to join WandurLust.</p>
+        <p>Career opportunities coming soon!</p>
+        <a href="/contact" class="btn btn-dark mt-4" style="background: linear-gradient(135deg, #fe424d 0%, #ff6b6b 100%) !important;">
+            Contact Us
+        </a>
+    </div>
+</div>

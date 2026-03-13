@@ -1,0 +1,92 @@
+<%layout("/layouts/boilerplate")%>
+
+<style>
+    .static-page {
+        max-width: 700px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+    }
+    .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 3px solid #fe424d;
+    }
+    .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #222222;
+        margin-bottom: 1rem;
+    }
+    .contact-info {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .contact-item i {
+        font-size: 1.5rem;
+        color: #fe424d;
+        width: 30px;
+    }
+    .contact-item div h3 {
+        font-size: 1.1rem;
+        color: #222222;
+        margin-bottom: 0.25rem;
+    }
+    .contact-item div p {
+        color: #717171;
+        margin: 0;
+    }
+</style>
+
+<div class="static-page">
+    <div class="page-header">
+        <h1><i class="fa-solid fa-envelope"></i> Contact Us</h1>
+        <p>We'd love to hear from you!</p>
+    </div>
+
+    <div class="contact-info">
+        <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+                <h3>Email</h3>
+                <p>support@wandurlust.com</p>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+                <h3>Phone</h3>
+                <p>+91 1234567890</p>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+                <h3>Address</h3>
+                <p>123 Travel Street, Mumbai, India</p>
+            </div>
+        </div>
+
+        <div class="contact-item">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM IST</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; color: #717171;">
+        <p>For urgent matters, please email us and we'll respond as soon as possible.</p>
+    </div>
+</div>

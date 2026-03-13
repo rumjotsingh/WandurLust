@@ -1,0 +1,268 @@
+<style>
+  /* Ultra Premium Floating Glass Navbar - NO HAMBURGER */
+  .premium-navbar {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    max-width: 1400px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    z-index: 9999;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .premium-navbar.scrolled {
+    top: 1rem;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Brand */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .brand:hover {
+    color: #000000;
+    transform: scale(1.02);
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
+    background: #000000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+  }
+
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-link {
+    color: #000000;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000000;
+  }
+
+  /* Search */
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    font-size: 0.9rem;
+    color: #000000;
+    width: 240px;
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.05);
+    border-color: #000000;
+    width: 280px;
+  }
+
+  .search-input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.9rem;
+  }
+
+  /* Actions */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .btn-primary {
+    background: #000000;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover {
+    background: #1a1a1a;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 0.6rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #000000;
+    border-color: #000000;
+  }
+
+  .user-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    color: #000000;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    background: #000000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Mobile - Hide everything except brand and show in bottom nav */
+  @media (max-width: 768px) {
+    .premium-navbar {
+      width: calc(100% - 2rem);
+      padding: 0.75rem 1rem;
+      top: 1rem;
+    }
+
+    .nav-links,
+    .search-container,
+    .nav-actions {
+      display: none;
+    }
+
+    .brand {
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<nav class="premium-navbar">
+  <div class="navbar-container">
+    <!-- Brand -->
+    <a href="/listings" class="brand">
+      <div class="brand-icon">
+        <i class="fa-solid fa-compass"></i>
+      </div>
+      <span>WandurLust</span>
+    </a>
+
+    <!-- Desktop Navigation - Always Visible -->
+    <div class="nav-links">
+      <a href="/listings" class="nav-link">Explore</a>
+      <a href="/listings/new" class="nav-link">List Property</a>
+    </div>
+
+    <!-- Desktop Search -->
+    <div class="search-container">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <form action="/listings/search" method="GET" style="margin: 0;">
+        <input type="search" name="q" class="search-input" placeholder="Search destinations..." required>
+      </form>
+    </div>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <% if (!CurrUser) { %>
+        <a href="/signup" class="btn-secondary">Sign up</a>
+        <a href="/login" class="btn-primary">Log in</a>
+      <% } else { %>
+        <a href="/profile" class="user-badge" style="text-decoration: none; cursor: pointer;">
+          <div class="user-avatar"><%= CurrUser.username.charAt(0).toUpperCase() %></div>
+          <span><%= CurrUser.username %></span>
+        </a>
+      <% } %>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.premium-navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+
+<!-- Add spacing for fixed navbar -->
+<div style="height: 100px;"></div>

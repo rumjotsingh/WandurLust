@@ -1,0 +1,373 @@
+<style>
+  /* Ultra Premium Floating Bottom Navigation - Glass Effect */
+  .mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    padding: 0.75rem 1rem;
+    z-index: 9998;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-bottom-nav:hover {
+    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%) translateY(-2px);
+  }
+
+  .mobile-nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 0.7rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0.75rem 0.5rem;
+    border-radius: 16px;
+    flex: 1;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+  }
+
+  .mobile-nav-item i {
+    font-size: 1.35rem;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-nav-item:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .mobile-nav-item.active {
+    color: #000000;
+    background: rgba(0, 0, 0, 0.08);
+    font-weight: 600;
+  }
+
+  .mobile-nav-item.active i {
+    transform: scale(1.1);
+  }
+
+  /* Show only on mobile */
+  @media (max-width: 768px) {
+    .mobile-bottom-nav {
+      display: block;
+      animation: floatUp 0.6s ease;
+    }
+    
+    body {
+      padding-bottom: 6rem;
+    }
+  }
+
+  @keyframes floatUp {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  /* Smaller screens */
+  @media (max-width: 480px) {
+    .mobile-bottom-nav {
+      width: calc(100% - 2rem);
+      bottom: 1rem;
+    }
+
+    .mobile-nav-item {
+      font-size: 0.65rem;
+      padding: 0.65rem 0.35rem;
+    }
+
+    .mobile-nav-item i {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* Premium Search Modal */
+  .mobile-search-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    padding: 2rem 1rem;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .mobile-search-modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .mobile-search-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mobile-search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-search-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .close-search {
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    color: #000000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-search:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: rotate(90deg);
+  }
+
+  .mobile-search-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #000000;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-search-input:focus {
+    outline: none;
+    background: white;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-search-input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+  .mobile-search-btn {
+    width: 100%;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: -0.2px;
+  }
+
+  .mobile-search-btn:hover {
+    background: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Floating indicator */
+  .nav-indicator {
+    position: absolute;
+    bottom: 0.25rem;
+    height: 3px;
+    background: #000000;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<!-- Floating Bottom Navigation -->
+<nav class="mobile-bottom-nav">
+    <div class="mobile-nav-items">
+        <a href="/listings" class="mobile-nav-item" data-nav="explore">
+            <i class="fa-solid fa-house"></i>
+            <span>Explore</span>
+        </a>
+        
+        <a href="#" class="mobile-nav-item" data-nav="search" onclick="openMobileSearch(event)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+        </a>
+        
+        <a href="/listings/new" class="mobile-nav-item" data-nav="add">
+            <i class="fa-solid fa-circle-plus"></i>
+            <span>Add</span>
+        </a>
+        
+        <% if (CurrUser) { %>
+            <a href="/profile" class="mobile-nav-item" data-nav="account">
+                <i class="fa-solid fa-user-circle"></i>
+                <span>Account</span>
+            </a>
+        <% } else { %>
+            <a href="/login" class="mobile-nav-item" data-nav="login">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <span>Login</span>
+            </a>
+        <% } %>
+    </div>
+</nav>
+
+<!-- Premium Search Modal -->
+<div class="mobile-search-modal" id="mobileSearchModal" onclick="handleModalClick(event)">
+    <div class="mobile-search-content" onclick="event.stopPropagation()">
+        <div class="mobile-search-header">
+            <h3>Search</h3>
+            <button class="close-search" onclick="closeMobileSearch()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form action="/listings/search" method="GET">
+            <input type="search" name="q" class="mobile-search-input" placeholder="Where do you want to go?" required autofocus>
+            <button type="submit" class="mobile-search-btn">
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openMobileSearch(e) {
+        e.preventDefault();
+        const modal = document.getElementById('mobileSearchModal');
+        modal.classList.add('active');
+        setTimeout(() => {
+            modal.querySelector('.mobile-search-input')?.focus();
+        }, 100);
+    }
+
+    function closeMobileSearch() {
+        document.getElementById('mobileSearchModal').classList.remove('active');
+    }
+
+    function handleModalClick(e) {
+        if (e.target.id === 'mobileSearchModal') {
+            closeMobileSearch();
+        }
+    }
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMobileSearch();
+        }
+    });
+
+    // Update active state
+    function updateMobileNav() {
+        const currentPath = window.location.pathname;
+        const navItems = document.querySelectorAll('.mobile-nav-item');
+        
+        // Remove all active states first
+        navItems.forEach(item => item.classList.remove('active'));
+        
+        // Find the best match
+        let bestMatch = null;
+        let bestMatchLength = 0;
+        
+        navItems.forEach(item => {
+            const href = item.getAttribute('href');
+            if (href && href !== '#') {
+                // Exact match gets highest priority
+                if (currentPath === href) {
+                    if (href.length > bestMatchLength) {
+                        bestMatch = item;
+                        bestMatchLength = href.length;
+                    }
+                }
+                // Starts with match (but not just '/')
+                else if (href !== '/' && currentPath.startsWith(href)) {
+                    if (href.length > bestMatchLength) {
+                        bestMatch = item;
+                        bestMatchLength = href.length;
+                    }
+                }
+            }
+        });
+        
+        // Apply active state to best match only
+        if (bestMatch) {
+            bestMatch.classList.add('active');
+        }
+    }
+
+    // Run on page load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateMobileNav);
+    } else {
+        updateMobileNav();
+    }
+
+    // Keep bottom nav always visible and floating
+    // No auto-hide on scroll
+</script>

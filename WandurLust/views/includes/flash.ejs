@@ -1,0 +1,122 @@
+ <style>
+  .flash-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    width: calc(100% - 40px);
+  }
+  
+  .flash-alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: none;
+    animation: slideInRight 0.4s ease, fadeOut 0.3s ease 4.7s forwards;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .flash-alert i {
+    font-size: 1.25rem;
+  }
+  
+  .flash-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+  }
+  
+  .flash-error {
+    background: linear-gradient(135deg, #dc3545 0%, #fe424d 100%);
+    color: white;
+  }
+  
+  .flash-alert .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+  }
+  
+  .flash-alert .btn-close:hover {
+    opacity: 1;
+  }
+  
+  @keyframes slideInRight {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translateX(400px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .flash-container {
+      top: 70px;
+      right: 10px;
+      left: 10px;
+      max-width: 100%;
+      width: auto;
+    }
+    
+    .flash-alert {
+      padding: 0.875rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .flash-alert i {
+      font-size: 1.1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .flash-container {
+      top: 60px;
+    }
+    
+    .flash-alert {
+      padding: 0.75rem 0.875rem;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<div class="flash-container">
+  <% if (Sucess && Sucess.length) { %>
+    <div class="alert flash-alert flash-success alert-dismissible fade show" role="alert">
+      <i class="fa-solid fa-circle-check"></i>
+      <span><%= Sucess %></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <% if (error && error.length) { %>
+    <div class="alert flash-alert flash-error alert-dismissible fade show" role="alert">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span><%= error %></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  // Auto-dismiss flash messages after 5 seconds
+  setTimeout(() => {
+    const flashAlerts = document.querySelectorAll('.flash-alert');
+    flashAlerts.forEach(alert => {
+      const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+      bsAlert.close();
+    });
+  }, 5000);
+</script>
