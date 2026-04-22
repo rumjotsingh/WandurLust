@@ -15,3 +15,16 @@ module.exports.reviewSchema=Joi.object({
         comment:Joi.string().required()
     }).required()
 });
+
+module.exports.bookingSchema = Joi.object({
+    checkIn: Joi.date().required().min('now'),
+    checkOut: Joi.date().required().greater(Joi.ref('checkIn')),
+    guests: Joi.number().required().min(1).max(20)
+});
+
+module.exports.messageSchema = Joi.object({
+    receiverId: Joi.string().required(),
+    listingId: Joi.string().allow('', null),
+    subject: Joi.string().max(200),
+    message: Joi.string().required().min(1).max(2000)
+});

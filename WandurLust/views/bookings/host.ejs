@@ -1,0 +1,112 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-home"></i> Bookings for My Listings</h2>
+    <a href="/bookings" class="btn btn-outline-primary">
+      <i class="fas fa-calendar-alt"></i> View My Bookings
+    </a>
+  </div>
+
+  <% if (bookings.length === 0) { %>
+    <div class="text-center py-5">
+      <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+      <h4>No bookings yet</h4>
+      <p class="text-muted">When guests book your properties, they'll appear here.</p>
+      <a href="/listings/new" class="btn btn-primary">Create a Listing</a>
+    </div>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Property</th>
+            <th>Guest</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Nights</th>
+            <th>Guests</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach(booking => { %>
+            <tr>
+              <td>
+                <% if (booking.listing) { %>
+                  <a href="/listings/<%= booking.listing._id %>" class="text-decoration-none">
+                    <strong><%= booking.listing.title %></strong>
+                  </a>
+                  <br>
+                  <small class="text-muted"><%= booking.listing.location %></small>
+                <% } else { %>
+                  <span class="text-muted">Listing Unavailable</span>
+                <% } %>
+              </td>
+              <td>
+                <% if (booking.user) { %>
+                  <%= booking.user.username %>
+                  <br>
+                  <small class="text-muted"><%= booking.user.email %></small>
+                <% } else { %>
+                  <span class="text-muted">User Unavailable</span>
+                <% } %>
+              </td>
+              <td><%= new Date(booking.checkIn).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></td>
+              <td><%= new Date(booking.checkOut).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></td>
+              <td><%= booking.numberOfNights %></td>
+              <td><%= booking.guests %></td>
+              <td><strong>₹<%= booking.totalPrice.toLocaleString() %></strong></td>
+              <td>
+                <% if (booking.status === 'confirmed') { %>
+                  <span class="badge bg-success">Confirmed</span>
+                <% } else if (booking.status === 'cancelled') { %>
+                  <span class="badge bg-danger">Cancelled</span>
+                <% } else { %>
+                  <span class="badge bg-secondary"><%= booking.status %></span>
+                <% } %>
+              </td>
+              <td>
+                <% if (booking.user) { %>
+                  <a href="/messages/conversation/<%= booking.user._id %>" class="btn btn-sm btn-outline-primary" title="Message Guest">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                <% } %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3 class="text-primary"><%= bookings.filter(b => b.status === 'confirmed').length %></h3>
+            <p class="text-muted mb-0">Confirmed Bookings</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3 class="text-success">₹<%= bookings.filter(b => b.status === 'confirmed').reduce((sum, b) => sum + b.totalPrice, 0).toLocaleString() %></h3>
+            <p class="text-muted mb-0">Total Revenue</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center">
+          <div class="card-body">
+            <h3 class="text-info"><%= bookings.length %></h3>
+            <p class="text-muted mb-0">Total Bookings</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>

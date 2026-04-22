@@ -1,7 +1,8 @@
  const Listing=require("./models/listing");
  const ExpressError=require("./utilis/ExpressError.js");
- const {listingSchema,reviewSchema}=require("./schema.js");
+ const {listingSchema,reviewSchema,bookingSchema,messageSchema}=require("./schema.js");
 const Review = require("./models/review.js");
+const Booking = require("./models/booking.js");
 module.exports.isLoggedIn=(req,res,next)=>{
     if(!req.isAuthenticated()){
       // console.log(req.path,"..",req.originalUrl);
@@ -55,6 +56,42 @@ module.exports.validateReview=(req,res,next)=>{
   if(!review.author.equals(res.locals.CurrUser._id)){
       req.flash("error","You  are not the author of review ");
       return res.redirect(`/listings/${id}`);
+  } 
+  next();
+}
+
+module.exports.validateBooking=(req,res,next)=>{
+    let {error}=bookingSchema.validate(req.body);
+   
+    if(error){
+       let errmsg=error.details.map((el)=>{return el.message}).join(",");
+       throw new ExpressError(400,errmsg);
+    }else{
+       next();
+    }
+ };
+
+module.exports.validateMessage=(req,res,next)=>{
+    let {error}=messageSchema.validate(req.body);
+   
+    if(error){
+       let errmsg=error.details.map((el)=>{return el.message}).join(",");
+       throw new ExpressError(400,errmsg);
+    }else{
+       next();
+    }
+ };
+
+module.exports.isBookingOwner= async(req,res,next)=>{
+  let {id}=req.params;
+  let booking=await Booking.findById(id);
+  if(!booking){
+      req.flash("error","Booking not found");
+      return res.redirect("/bookings");
+  }
+  if(!booking.user.equals(res.locals.CurrUser._id)){
+      req.flash("error","You don't have permission to access this booking");
+      return res.redirect("/bookings");
   } 
   next();
 }

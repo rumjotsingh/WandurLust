@@ -1,0 +1,160 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="mb-0">
+                <i class="fas fa-user-circle"></i> <%= otherUser.username %>
+              </h5>
+              <small><%= otherUser.email %></small>
+            </div>
+            <a href="/messages" class="btn btn-sm btn-light">
+              <i class="fas fa-arrow-left"></i> Back to Inbox
+            </a>
+          </div>
+        </div>
+
+        <div class="card-body" style="height: 500px; overflow-y: auto;" id="messageContainer">
+          <% if (messages.length === 0) { %>
+            <div class="text-center text-muted py-5">
+              <i class="fas fa-comments fa-3x mb-3"></i>
+              <p>No messages yet. Start the conversation!</p>
+            </div>
+          <% } else { %>
+            <% messages.forEach(msg => { %>
+              <% const isCurrentUser = msg.sender._id.toString() === CurrUser._id.toString(); %>
+              
+              <div class="message-wrapper <%= isCurrentUser ? 'text-end' : 'text-start' %> mb-3">
+                <div class="message <%= isCurrentUser ? 'message-sent' : 'message-received' %>">
+                  <% if (msg.listing) { %>
+                    <div class="message-listing-ref mb-2">
+                      <small>
+                        <i class="fas fa-home"></i> About: <%= msg.listing.title %>
+                      </small>
+                    </div>
+                  <% } %>
+                  
+                  <% if (msg.subject && msg.subject !== 'Reply' && msg.subject !== 'General Inquiry') { %>
+                    <div class="message-subject mb-1">
+                      <strong><%= msg.subject %></strong>
+                    </div>
+                  <% } %>
+                  
+                  <p class="mb-1"><%= msg.message %></p>
+                  
+                  <small class="message-time">
+                    <%= new Date(msg.createdAt).toLocaleString('en-US', { 
+                      month: 'short', 
+                      day: 'numeric', 
+                      hour: 'numeric', 
+                      minute: '2-digit',
+                      hour12: true 
+                    }) %>
+                  </small>
+                </div>
+              </div>
+            <% }); %>
+          <% } %>
+        </div>
+
+        <div class="card-footer">
+          <form action="/messages/reply/<%= otherUser._id %>" method="POST" id="replyForm">
+            <div class="input-group">
+              <textarea 
+                class="form-control" 
+                name="message" 
+                id="replyMessage"
+                rows="2" 
+                placeholder="Type your message..."
+                required
+                maxlength="2000"
+              ></textarea>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Send
+              </button>
+            </div>
+            <small class="text-muted">
+              <span id="replyCharCount">0</span>/2000 characters
+            </small>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .message {
+    display: inline-block;
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    word-wrap: break-word;
+  }
+
+  .message-sent {
+    background-color: #007bff;
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .message-received {
+    background-color: #e9ecef;
+    color: #212529;
+    border-bottom-left-radius: 4px;
+  }
+
+  .message-time {
+    opacity: 0.7;
+    font-size: 0.75rem;
+  }
+
+  .message-listing-ref {
+    padding: 6px 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+  }
+
+  .message-sent .message-listing-ref {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .message-received .message-listing-ref {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  #messageContainer {
+    background-color: #f8f9fa;
+  }
+
+  .input-group textarea {
+    resize: none;
+  }
+</style>
+
+<script>
+  // Auto-scroll to bottom on page load
+  const messageContainer = document.getElementById('messageContainer');
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+
+  // Character counter
+  const replyMessage = document.getElementById('replyMessage');
+  const replyCharCount = document.getElementById('replyCharCount');
+
+  replyMessage.addEventListener('input', function() {
+    replyCharCount.textContent = this.value.length;
+  });
+
+  // Auto-resize textarea
+  replyMessage.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+
+  // Focus on message input
+  replyMessage.focus();
+</script>

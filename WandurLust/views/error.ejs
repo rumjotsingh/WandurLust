@@ -1,7 +1,7 @@
 <%layout("/layouts/boilerplate")%>
 
 <style>
-    /* Premium Error Page - Black & White */
+    /* Airbnb-Style Error Page */
     .error-container {
         min-height: 80vh;
         display: flex;
@@ -11,15 +11,13 @@
     }
     
     .error-card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 24px;
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 20px;
         overflow: hidden;
-        max-width: 700px;
+        max-width: 600px;
         width: 100%;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        box-shadow: rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0;
         animation: fadeInUp 0.6s ease;
     }
     
@@ -35,137 +33,102 @@
     }
     
     .error-header {
-        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-        color: white;
-        padding: 3rem 2rem;
+        background: #ffffff;
+        color: #222222;
+        padding: 3rem 2rem 2rem;
         text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .error-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-        opacity: 1;
+        border-bottom: 1px solid #dddddd;
     }
     
     .error-icon-wrapper {
-        width: 120px;
-        height: 120px;
-        background: rgba(255, 255, 255, 0.1);
+        width: 100px;
+        height: 100px;
+        background: #f7f7f7;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.5rem;
-        position: relative;
-        animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
     }
     
     .error-icon {
-        font-size: 4rem;
-        color: white;
-        position: relative;
-        z-index: 1;
+        font-size: 3rem;
+        color: #222222;
     }
     
     .error-code {
-        font-size: 5rem;
-        font-weight: 900;
+        font-size: 4rem;
+        font-weight: 700;
         margin: 0;
-        letter-spacing: -3px;
-        opacity: 0.9;
-        position: relative;
-        z-index: 1;
+        letter-spacing: -1.5px;
+        color: #222222;
     }
 
     .error-title {
-        font-size: 1.75rem;
-        font-weight: 700;
+        font-size: 1.375rem;
+        font-weight: 600;
         margin: 1rem 0 0 0;
-        letter-spacing: -0.5px;
-        position: relative;
-        z-index: 1;
+        letter-spacing: -0.44px;
+        color: #222222;
     }
     
     .error-body {
-        padding: 3rem 2rem;
+        padding: 2rem;
         text-align: center;
     }
     
     .error-message {
-        font-size: 1.1rem;
-        color: rgba(0, 0, 0, 0.7);
-        margin-bottom: 2.5rem;
-        line-height: 1.6;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #6a6a6a;
+        margin-bottom: 2rem;
+        line-height: 1.43;
     }
     
     .error-suggestions {
-        background: rgba(0, 0, 0, 0.03);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 16px;
-        padding: 2rem;
-        margin-bottom: 2.5rem;
+        background: #f7f7f7;
+        border: 1px solid #dddddd;
+        border-radius: 14px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: left;
     }
     
     .suggestions-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #000000;
-        margin-bottom: 1.5rem;
-        letter-spacing: -0.3px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #222222;
+        margin-bottom: 1rem;
+        letter-spacing: 0;
     }
     
     .suggestions-list {
         list-style: none;
         padding: 0;
         margin: 0;
-        text-align: left;
     }
     
     .suggestion-item {
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 0.75rem;
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-    }
-
-    .suggestion-item:hover {
-        background: rgba(0, 0, 0, 0.05);
+        gap: 0.75rem;
+        padding: 0.5rem 0;
+        color: #6a6a6a;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
     
     .suggestion-item i {
-        width: 24px;
-        height: 24px;
-        background: #000000;
+        width: 20px;
+        height: 20px;
+        background: #222222;
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.75rem;
+        font-size: 0.625rem;
         flex-shrink: 0;
-    }
-
-    .suggestion-text {
-        color: rgba(0, 0, 0, 0.7);
-        font-size: 0.95rem;
     }
     
     .error-actions {
@@ -176,93 +139,46 @@
     }
     
     .btn-error {
-        padding: 1rem 2.5rem;
-        border-radius: 16px;
+        padding: 0.875rem 1.5rem;
+        border-radius: 8px;
         font-weight: 600;
         font-size: 1rem;
         text-decoration: none;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
-        gap: 0.75rem;
-        letter-spacing: -0.2px;
+        gap: 0.5rem;
+        letter-spacing: 0;
     }
     
     .btn-primary-error {
-        background: #000000;
+        background: #ff385c;
         color: white;
         border: none;
     }
     
     .btn-primary-error:hover {
-        background: #1a1a1a;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        background: #e00b41;
+        transform: scale(0.96);
         color: white;
     }
     
     .btn-secondary-error {
         background: transparent;
-        color: #000000;
-        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #222222;
+        border: 1px solid #dddddd;
     }
     
     .btn-secondary-error:hover {
-        background: rgba(0, 0, 0, 0.05);
-        border-color: #000000;
-        transform: translateY(-2px);
-        color: #000000;
+        background: #f7f7f7;
+        border-color: #222222;
+        color: #222222;
     }
     
     /* Responsive */
     @media (max-width: 768px) {
         .error-header {
-            padding: 2.5rem 1.5rem;
-        }
-
-        .error-icon-wrapper {
-            width: 100px;
-            height: 100px;
-        }
-        
-        .error-icon {
-            font-size: 3rem;
-        }
-
-        .error-code {
-            font-size: 4rem;
-        }
-        
-        .error-title {
-            font-size: 1.5rem;
-        }
-        
-        .error-body {
-            padding: 2.5rem 1.5rem;
-        }
-        
-        .error-message {
-            font-size: 1rem;
-        }
-        
-        .error-suggestions {
-            padding: 1.5rem;
-        }
-        
-        .error-actions {
-            flex-direction: column;
-        }
-        
-        .btn-error {
-            width: 100%;
-            justify-content: center;
-            padding: 0.875rem 2rem;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .error-header {
-            padding: 2rem 1rem;
+            padding: 2.5rem 1.5rem 2rem;
         }
 
         .error-icon-wrapper {
@@ -283,15 +199,24 @@
         }
         
         .error-body {
-            padding: 2rem 1rem;
+            padding: 2rem 1.5rem;
+        }
+        
+        .error-message {
+            font-size: 0.9375rem;
         }
         
         .error-suggestions {
             padding: 1.25rem;
         }
-
+        
+        .error-actions {
+            flex-direction: column;
+        }
+        
         .btn-error {
-            font-size: 0.95rem;
+            width: 100%;
+            justify-content: center;
         }
     }
 </style>
@@ -308,27 +233,23 @@
         
         <div class="error-body">
             <div class="error-message">
-                <%= message || "The page you're looking for doesn't exist or has been moved." %>
+                <%= message || "We can't seem to find the page you're looking for." %>
             </div>
             
             <div class="error-suggestions">
-                <h3 class="suggestions-title">What can you do?</h3>
+                <h3 class="suggestions-title">Here are some helpful links:</h3>
                 <ul class="suggestions-list">
                     <li class="suggestion-item">
                         <i class="fa-solid fa-check"></i>
-                        <span class="suggestion-text">Check the URL and try again</span>
+                        <span>Check the URL for typos</span>
                     </li>
                     <li class="suggestion-item">
                         <i class="fa-solid fa-check"></i>
-                        <span class="suggestion-text">Go back to the previous page</span>
+                        <span>Go back to the previous page</span>
                     </li>
                     <li class="suggestion-item">
                         <i class="fa-solid fa-check"></i>
-                        <span class="suggestion-text">Return to homepage and start over</span>
-                    </li>
-                    <li class="suggestion-item">
-                        <i class="fa-solid fa-check"></i>
-                        <span class="suggestion-text">Contact support if the problem persists</span>
+                        <span>Visit our homepage</span>
                     </li>
                 </ul>
             </div>
@@ -340,7 +261,7 @@
                 </a>
                 <a href="/listings" class="btn-error btn-primary-error">
                     <i class="fa-solid fa-house"></i>
-                    <span>Back to Home</span>
+                    <span>Home</span>
                 </a>
             </div>
         </div>

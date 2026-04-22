@@ -1,0 +1,604 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Premium Contact Host Page - Airbnb Style */
+  .contact-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #222222;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #000000;
+    gap: 0.75rem;
+  }
+
+  .contact-header {
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.6s ease;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .contact-subtitle {
+    font-size: 1rem;
+    color: #6a6a6a;
+    font-weight: 400;
+  }
+
+  /* Two Column Layout */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Left Column - Form */
+  .message-form-section {
+    animation: fadeInLeft 0.6s ease;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .form-card {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .form-section-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #222222;
+    transition: all 0.2s ease;
+    background: #ffffff;
+    font-family: inherit;
+  }
+
+  .form-input:hover,
+  .form-textarea:hover {
+    border-color: #222222;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: #222222;
+    box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 180px;
+    line-height: 1.5;
+  }
+
+  .char-counter {
+    text-align: right;
+    font-size: 0.8125rem;
+    color: #6a6a6a;
+    margin-top: 0.5rem;
+  }
+
+  .char-counter.warning {
+    color: #e31c5f;
+  }
+
+  /* Tips Box */
+  .tips-box {
+    background: #f7f7f7;
+    border-left: 3px solid #222222;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tips-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tips-list li {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    padding: 0.375rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .tips-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0.5rem;
+    color: #222222;
+    font-weight: 700;
+  }
+
+  /* Buttons */
+  .form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn-send {
+    flex: 1;
+    background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-send:hover {
+    background: linear-gradient(to right, #d01346 0%, #c71958 50%, #b8035d 100%);
+    transform: scale(0.98);
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: #222222;
+    border: 1px solid #222222;
+    border-radius: 8px;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-cancel:hover {
+    background: #f7f7f7;
+    color: #222222;
+  }
+
+  /* Right Column - Property Card */
+  .property-card {
+    position: sticky;
+    top: 100px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    animation: fadeInRight 0.6s ease;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .property-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  .property-content {
+    padding: 1.5rem;
+  }
+
+  .property-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .property-location {
+    font-size: 0.9375rem;
+    color: #6a6a6a;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .property-divider {
+    height: 1px;
+    background: #ebebeb;
+    margin: 1.5rem 0;
+  }
+
+  .host-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .host-avatar {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #222222 0%, #484848 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .host-info h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.25rem;
+  }
+
+  .host-info p {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    margin: 0;
+  }
+
+  .property-details {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    color: #222222;
+  }
+
+  .detail-row i {
+    width: 20px;
+    color: #6a6a6a;
+    font-size: 0.875rem;
+  }
+
+  .property-price {
+    text-align: center;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid #ebebeb;
+    margin-top: 1.5rem;
+  }
+
+  .price-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222222;
+  }
+
+  .price-label {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    margin-top: 0.25rem;
+  }
+
+  /* Response Time Badge */
+  .response-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  .response-badge i {
+    font-size: 0.75rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .property-card {
+      position: relative;
+      top: 0;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .contact-title {
+      font-size: 1.75rem;
+    }
+
+    .form-card {
+      padding: 1.5rem;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .btn-send,
+    .btn-cancel {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-container {
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    .contact-title {
+      font-size: 1.5rem;
+    }
+
+    .property-content {
+      padding: 1.25rem;
+    }
+  }
+</style>
+
+<div class="contact-container">
+  <a href="/listings/<%= listing._id %>" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to listing
+  </a>
+
+  <div class="contact-header">
+    <h1 class="contact-title">Contact host</h1>
+    <p class="contact-subtitle">Send a message to <%= listing.owner.username %> about this property</p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Left Column - Message Form -->
+    <div class="message-form-section">
+      <div class="form-card">
+        <h2 class="form-section-title">Your message</h2>
+        
+        <form action="/messages" method="POST" id="messageForm">
+          <input type="hidden" name="receiverId" value="<%= listing.owner._id %>">
+          <input type="hidden" name="listingId" value="<%= listing._id %>">
+
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <input 
+              type="text" 
+              class="form-input" 
+              id="subject" 
+              name="subject" 
+              value="Inquiry about <%= listing.title %>"
+              maxlength="200"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea 
+              class="form-textarea" 
+              id="message" 
+              name="message" 
+              required
+              maxlength="2000"
+              placeholder="Hi <%= listing.owner.username %>,&#10;&#10;I'm interested in your property and would like to know more about...&#10;&#10;My travel dates are...&#10;&#10;Looking forward to hearing from you!"
+            ></textarea>
+            <div class="char-counter">
+              <span id="charCount">0</span> / 2000 characters
+            </div>
+          </div>
+
+          <div class="tips-box">
+            <div class="tips-title">
+              <i class="fa-solid fa-lightbulb"></i>
+              Tips for a great message
+            </div>
+            <ul class="tips-list">
+              <li>Introduce yourself and explain why you're interested</li>
+              <li>Mention your travel dates and number of guests</li>
+              <li>Ask specific questions about the property or amenities</li>
+              <li>Be polite and respectful in your communication</li>
+            </ul>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-send">
+              <i class="fa-solid fa-paper-plane"></i>
+              Send message
+            </button>
+            <a href="/listings/<%= listing._id %>" class="btn-cancel">
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Column - Property Card -->
+    <div class="property-card">
+      <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="property-image">
+      
+      <div class="property-content">
+        <h3 class="property-title"><%= listing.title %></h3>
+        <p class="property-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <%= listing.location %>, <%= listing.country %>
+        </p>
+
+        <div class="property-divider"></div>
+
+        <!-- Host Info -->
+        <div class="host-section">
+          <div class="host-avatar">
+            <%= listing.owner.username.charAt(0).toUpperCase() %>
+          </div>
+          <div class="host-info">
+            <h4>Hosted by <%= listing.owner.username %></h4>
+            <p>Superhost · Joined 2024</p>
+          </div>
+        </div>
+
+        <div class="response-badge">
+          <i class="fa-solid fa-bolt"></i>
+          Usually responds within an hour
+        </div>
+
+        <div class="property-divider"></div>
+
+        <!-- Property Details -->
+        <div class="property-details">
+          <div class="detail-row">
+            <i class="fa-solid fa-users"></i>
+            <span><%= listing.guests || 2 %> guests</span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-door-open"></i>
+            <span><%= listing.bedrooms || 1 %> <%= listing.bedrooms === 1 ? 'bedroom' : 'bedrooms' %></span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-bed"></i>
+            <span><%= listing.beds || 1 %> <%= listing.beds === 1 ? 'bed' : 'beds' %></span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-bath"></i>
+            <span><%= listing.bathrooms || 1 %> <%= listing.bathrooms === 1 ? 'bathroom' : 'bathrooms' %></span>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="property-price">
+          <div class="price-amount">₹<%= listing.price.toLocaleString('en-IN') %></div>
+          <div class="price-label">per night</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const messageTextarea = document.getElementById('message');
+  const charCount = document.getElementById('charCount');
+  const charCounter = document.querySelector('.char-counter');
+
+  messageTextarea.addEventListener('input', function() {
+    const length = this.value.length;
+    charCount.textContent = length;
+    
+    // Warning when approaching limit
+    if (length > 1800) {
+      charCounter.classList.add('warning');
+    } else {
+      charCounter.classList.remove('warning');
+    }
+  });
+
+  // Auto-resize textarea
+  messageTextarea.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = (this.scrollHeight) + 'px';
+  });
+
+  // Focus on message textarea
+  messageTextarea.focus();
+</script>

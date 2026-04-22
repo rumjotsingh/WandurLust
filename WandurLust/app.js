@@ -11,6 +11,8 @@ const methodoverride = require("method-override");
 const ejsmate = require("ejs-mate");
 const listingsRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/reviews.js");
+const bookingRouter = require("./routes/booking.js");
+const messageRouter = require("./routes/message.js");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
@@ -78,9 +80,10 @@ app.use((req, res, next) => {
   res.locals.CurrUser = req.user;
   next();
 });
-app.get("/", listingcontrollers.index);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewRouter);
+app.use("/bookings", bookingRouter);
+app.use("/messages", messageRouter);
 app.use("/", userRouter);
 
 // Static pages routes

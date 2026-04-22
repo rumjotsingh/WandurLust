@@ -1,0 +1,702 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Premium Booking Page - Airbnb Style */
+  .booking-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #222222;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #000000;
+    gap: 0.75rem;
+  }
+
+  .booking-header {
+    margin-bottom: 2rem;
+  }
+
+  .booking-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .booking-subtitle {
+    font-size: 1rem;
+    color: #6a6a6a;
+    font-weight: 400;
+  }
+
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* Left Column - Form */
+  .booking-form-section {
+    animation: fadeInLeft 0.6s ease;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .form-section {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+  }
+
+  .date-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #222222;
+    transition: all 0.2s ease;
+    background: #ffffff;
+  }
+
+  .form-input:hover {
+    border-color: #222222;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #222222;
+    box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+  }
+
+  .form-select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #222222;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .form-select:hover {
+    border-color: #222222;
+  }
+
+  .form-select:focus {
+    outline: none;
+    border-color: #222222;
+    box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6a6a6a;
+    pointer-events: none;
+  }
+
+  /* Price Breakdown */
+  .price-breakdown {
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    display: none;
+  }
+
+  .price-breakdown.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #222222;
+  }
+
+  .price-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .price-divider {
+    height: 1px;
+    background: #dddddd;
+    margin: 1rem 0;
+  }
+
+  .price-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #222222;
+    padding-top: 1rem;
+    border-top: 1px solid #dddddd;
+  }
+
+  /* Info Box */
+  .info-box {
+    background: #f7f7f7;
+    border-left: 3px solid #222222;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-box-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-box-text {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Submit Button */
+  .btn-book {
+    width: 100%;
+    background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-book:hover {
+    background: linear-gradient(to right, #d01346 0%, #c71958 50%, #b8035d 100%);
+    transform: scale(0.98);
+  }
+
+  .btn-book:active {
+    transform: scale(0.96);
+  }
+
+  /* Right Column - Sticky Card */
+  .booking-summary {
+    position: sticky;
+    top: 100px;
+    animation: fadeInRight 0.6s ease;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .summary-card {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .property-preview {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .property-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .property-info {
+    flex: 1;
+  }
+
+  .property-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.25rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .property-location {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    margin-bottom: 0.5rem;
+  }
+
+  .property-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #222222;
+    font-weight: 500;
+  }
+
+  .property-rating i {
+    font-size: 0.75rem;
+  }
+
+  .price-display {
+    text-align: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 1.5rem;
+  }
+
+  .price-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222222;
+    letter-spacing: -0.5px;
+  }
+
+  .price-label {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+    margin-top: 0.25rem;
+  }
+
+  .summary-details {
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    font-size: 0.9375rem;
+    color: #222222;
+  }
+
+  .detail-row i {
+    width: 20px;
+    color: #6a6a6a;
+    font-size: 0.875rem;
+  }
+
+  .protection-badge {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .protection-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .protection-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .protection-list li {
+    font-size: 0.8125rem;
+    color: #6a6a6a;
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .protection-list i {
+    color: #008a05;
+    font-size: 0.75rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .booking-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .booking-summary {
+      position: relative;
+      top: 0;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .booking-container {
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .booking-title {
+      font-size: 1.75rem;
+    }
+
+    .date-inputs {
+      grid-template-columns: 1fr;
+    }
+
+    .form-section {
+      padding: 1.5rem;
+    }
+
+    .property-preview {
+      flex-direction: column;
+    }
+
+    .property-image {
+      width: 100%;
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .booking-container {
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    .booking-title {
+      font-size: 1.5rem;
+    }
+
+    .summary-card {
+      padding: 1.25rem;
+    }
+  }
+</style>
+
+<div class="booking-container">
+  <a href="/listings/<%= listing._id %>" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to listing
+  </a>
+
+  <div class="booking-header">
+    <h1 class="booking-title">Confirm and pay</h1>
+    <p class="booking-subtitle">Your trip is just a few steps away</p>
+  </div>
+
+  <div class="booking-grid">
+    <!-- Left Column - Form -->
+    <div class="booking-form-section">
+      <form action="/listings/<%= listing._id %>/book" method="POST" id="bookingForm">
+        <!-- Dates Section -->
+        <div class="form-section">
+          <h2 class="section-title">Your trip</h2>
+          
+          <div class="form-group">
+            <label class="form-label">Dates</label>
+            <div class="date-inputs">
+              <div class="input-wrapper">
+                <input 
+                  type="date" 
+                  class="form-input" 
+                  id="checkIn" 
+                  name="checkIn" 
+                  required
+                  min="<%= new Date().toISOString().split('T')[0] %>"
+                  placeholder="Check-in"
+                >
+              </div>
+              <div class="input-wrapper">
+                <input 
+                  type="date" 
+                  class="form-input" 
+                  id="checkOut" 
+                  name="checkOut" 
+                  required
+                  min="<%= new Date().toISOString().split('T')[0] %>"
+                  placeholder="Check-out"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="guests" class="form-label">Guests</label>
+            <select class="form-select" id="guests" name="guests" required>
+              <% for(let i = 1; i <= (listing.guests || 10); i++) { %>
+                <option value="<%= i %>"><%= i %> <%= i === 1 ? 'guest' : 'guests' %></option>
+              <% } %>
+            </select>
+          </div>
+
+          <!-- Price Breakdown -->
+          <div class="price-breakdown" id="priceBreakdown">
+            <div class="price-row">
+              <span>₹<%= listing.price.toLocaleString("en-IN") %> × <span id="nightsCount">0</span> nights</span>
+              <span id="subtotal">₹0</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-total">
+              <span>Total (INR)</span>
+              <span id="totalPrice">₹0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cancellation Policy -->
+        <div class="info-box">
+          <div class="info-box-title">
+            <i class="fa-solid fa-calendar-xmark"></i>
+            Cancellation policy
+          </div>
+          <p class="info-box-text">
+            Free cancellation before check-in. Cancel before check-in for a full refund.
+          </p>
+        </div>
+
+        <!-- Ground Rules -->
+        <div class="info-box">
+          <div class="info-box-title">
+            <i class="fa-solid fa-clipboard-list"></i>
+            Ground rules
+          </div>
+          <p class="info-box-text">
+            We ask every guest to remember a few simple things about what makes a great guest.
+          </p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-book">
+          <i class="fa-solid fa-lock"></i>
+          Confirm and pay
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Column - Summary Card -->
+    <div class="booking-summary">
+      <div class="summary-card">
+        <!-- Property Preview -->
+        <div class="property-preview">
+          <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="property-image">
+          <div class="property-info">
+            <h3 class="property-title"><%= listing.title %></h3>
+            <p class="property-location">
+              <i class="fa-solid fa-location-dot"></i>
+              <%= listing.location %>, <%= listing.country %>
+            </p>
+            <% if (listing.reviews && listing.reviews.length > 0) { %>
+              <div class="property-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9 · <%= listing.reviews.length %> reviews</span>
+              </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Price Display -->
+        <div class="price-display">
+          <div class="price-amount">₹<%= listing.price.toLocaleString("en-IN") %></div>
+          <div class="price-label">per night</div>
+        </div>
+
+        <!-- Property Details -->
+        <div class="summary-details">
+          <div class="detail-row">
+            <i class="fa-solid fa-users"></i>
+            <span>Up to <%= listing.guests || 2 %> guests</span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-door-open"></i>
+            <span><%= listing.bedrooms || 1 %> <%= listing.bedrooms === 1 ? 'bedroom' : 'bedrooms' %></span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-bed"></i>
+            <span><%= listing.beds || 1 %> <%= listing.beds === 1 ? 'bed' : 'beds' %></span>
+          </div>
+          <div class="detail-row">
+            <i class="fa-solid fa-bath"></i>
+            <span><%= listing.bathrooms || 1 %> <%= listing.bathrooms === 1 ? 'bathroom' : 'bathrooms' %></span>
+          </div>
+        </div>
+
+        <!-- Protection Badge -->
+        <div class="protection-badge">
+          <div class="protection-title">
+            <i class="fa-solid fa-shield-halved"></i>
+            Your booking is protected
+          </div>
+          <ul class="protection-list">
+            <li>
+              <i class="fa-solid fa-check"></i>
+              Secure payment
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i>
+              24/7 customer support
+            </li>
+            <li>
+              <i class="fa-solid fa-check"></i>
+              Verified property
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const checkInInput = document.getElementById('checkIn');
+  const checkOutInput = document.getElementById('checkOut');
+  const pricePerNight = <%= listing.price %>;
+  const priceBreakdown = document.getElementById('priceBreakdown');
+
+  function calculatePrice() {
+    const checkIn = new Date(checkInInput.value);
+    const checkOut = new Date(checkOutInput.value);
+
+    if (checkIn && checkOut && checkOut > checkIn) {
+      const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+      const total = nights * pricePerNight;
+
+      document.getElementById('nightsCount').textContent = nights;
+      document.getElementById('subtotal').textContent = '₹' + total.toLocaleString('en-IN');
+      document.getElementById('totalPrice').textContent = '₹' + total.toLocaleString('en-IN');
+      priceBreakdown.classList.add('active');
+    } else {
+      priceBreakdown.classList.remove('active');
+    }
+  }
+
+  checkInInput.addEventListener('change', function() {
+    const checkInDate = new Date(this.value);
+    checkInDate.setDate(checkInDate.getDate() + 1);
+    checkOutInput.min = checkInDate.toISOString().split('T')[0];
+    calculatePrice();
+  });
+
+  checkOutInput.addEventListener('change', calculatePrice);
+
+  // Form validation
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    const checkIn = new Date(checkInInput.value);
+    const checkOut = new Date(checkOutInput.value);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkIn < today) {
+      e.preventDefault();
+      alert('Check-in date cannot be in the past');
+      return false;
+    }
+
+    if (checkOut <= checkIn) {
+      e.preventDefault();
+      alert('Check-out date must be after check-in date');
+      return false;
+    }
+  });
+</script>

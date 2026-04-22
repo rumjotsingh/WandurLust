@@ -1,141 +1,66 @@
 <style>
-  /* Ultra Premium Hero - Black & White with Glass Effect */
+  /* Airbnb-Style Hero - Clean & Minimal */
   .premium-hero {
-    background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
-    color: var(--white);
-    padding: 6rem 2rem 4rem;
-    margin: 0 -2rem 4rem -2rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .premium-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    opacity: 1;
+    background: #ffffff;
+    color: #222222;
+    padding: 4rem 2rem 3rem;
+    margin: 0 0 3rem 0;
+    text-align: center;
   }
 
   .hero-content {
-    max-width: 900px;
+    max-width: 640px;
     margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
   }
 
   .hero-title {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    letter-spacing: -2px;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.18;
+    letter-spacing: -0.44px;
+    color: #222222;
   }
 
   .hero-subtitle {
-    font-size: 1.25rem;
-    opacity: 0.7;
-    margin-bottom: 3rem;
-    font-weight: 400;
-    letter-spacing: -0.3px;
+    font-size: 1.125rem;
+    color: #6a6a6a;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    line-height: 1.43;
   }
 
   .hero-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    background: var(--white);
-    color: var(--black);
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
-    font-weight: 700;
+    gap: 0.5rem;
+    background: #ff385c;
+    color: white;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
-    letter-spacing: -0.3px;
+    transition: all 0.3s ease;
   }
 
   .hero-cta:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(255, 255, 255, 0.2);
-    color: var(--black);
-  }
-
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-    margin-top: 4rem;
-    flex-wrap: wrap;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-number {
-    font-size: 3rem;
-    font-weight: 800;
-    display: block;
-    margin-bottom: 0.5rem;
-    letter-spacing: -1.5px;
-  }
-
-  .stat-label {
-    font-size: 0.95rem;
-    opacity: 0.6;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-weight: 500;
+    background: #e00b41;
+    color: white;
+    transform: scale(0.96);
   }
 
   @media (max-width: 1024px) {
     .hero-title {
-      font-size: 3rem;
-    }
-
-    .hero-stats {
-      gap: 3rem;
-    }
-
-    .stat-number {
       font-size: 2.5rem;
     }
   }
 
   @media (max-width: 768px) {
     .premium-hero {
-      padding: 5rem 1.5rem 3rem;
+      padding: 3rem 1.5rem 2rem;
     }
 
-    .hero-title {
-      font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.1rem;
-    }
-
-    .hero-stats {
-      gap: 2rem;
-    }
-
-    .stat-number {
-      font-size: 2rem;
-    }
-
-    .hero-cta {
-      padding: 0.875rem 2rem;
-      font-size: 0.95rem;
-    }
-  }
-
-  @media (max-width: 640px) {
     .hero-title {
       font-size: 2rem;
     }
@@ -144,48 +69,35 @@
       font-size: 1rem;
     }
 
-    .stat-number {
-      font-size: 1.75rem;
+    .hero-cta {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9375rem;
     }
+  }
 
-    .stat-label {
-      font-size: 0.85rem;
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 1.75rem;
     }
   }
 </style>
 
 <div class="premium-hero">
   <div class="hero-content">
-    <h1 class="hero-title">Discover Your Next Adventure</h1>
+    <h1 class="hero-title">Find your next stay</h1>
     <p class="hero-subtitle">
-      Explore unique stays and experiences around the world
+      Discover entire homes and rooms perfect for any trip
     </p>
     
     <% if (!CurrUser) { %>
       <a href="/login" class="hero-cta">
-        <i class="fa-solid fa-arrow-right"></i>
-        <span>Try Demo Account</span>
+        Get started
       </a>
     <% } else { %>
       <a href="/listings/new" class="hero-cta">
         <i class="fa-solid fa-plus"></i>
-        <span>List Your Property</span>
+        <span>List your property</span>
       </a>
     <% } %>
-
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-number">1000+</span>
-        <span class="stat-label">Properties</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">50+</span>
-        <span class="stat-label">Countries</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">10K+</span>
-        <span class="stat-label">Happy Guests</span>
-      </div>
-    </div>
   </div>
 </div>

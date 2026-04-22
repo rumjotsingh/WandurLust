@@ -1,17 +1,42 @@
-/* Ultra Premium Black & White Design System */
+/* Airbnb Design System - 2026 */
 :root {
-    --black: #000000;
+    /* Primary Colors */
+    --rausch: #ff385c;
+    --deep-rausch: #e00b41;
+    --plus-magenta: #92174d;
+    --luxe-purple: #460479;
+    --info-blue: #428bff;
+    
+    /* Surface & Background */
+    --canvas-white: #ffffff;
+    --soft-cloud: #f7f7f7;
+    --hairline-gray: #dddddd;
+    
+    /* Neutrals & Text */
+    --ink-black: #222222;
+    --charcoal: #3f3f3f;
+    --ash-gray: #6a6a6a;
+    --mute-gray: #929292;
+    --stone-gray: #c1c1c1;
+    
+    /* Semantic */
+    --error-red: #c13515;
+    --deep-error: #b32505;
+    
+    /* Legacy support */
+    --black: #222222;
     --white: #ffffff;
-    --gray-50: #fafafa;
-    --gray-100: #f5f5f5;
-    --gray-200: #e5e5e5;
-    --gray-300: #d4d4d4;
-    --gray-400: #a3a3a3;
-    --gray-500: #737373;
-    --gray-600: #525252;
-    --gray-700: #404040;
-    --gray-800: #262626;
-    --gray-900: #171717;
+    --gray-50: #f7f7f7;
+    --gray-100: #f7f7f7;
+    --gray-200: #dddddd;
+    --gray-300: #c1c1c1;
+    --gray-400: #929292;
+    --gray-500: #6a6a6a;
+    --gray-600: #3f3f3f;
+    --gray-700: #222222;
+    --gray-800: #222222;
+    --gray-900: #222222;
+    
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -22,14 +47,15 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: var(--white);
-    color: var(--black);
+    font-family: 'Airbnb Cereal VF', Circular, -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+    background: var(--canvas-white);
+    color: var(--ink-black);
     overflow-x: hidden;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
+    font-weight: 500;
 }
 
 html {
@@ -43,20 +69,19 @@ html {
     padding: 0 2rem;
 }
 
-/* Premium Card Design - Minimal Black & White */
+/* Premium Card Design - Airbnb Style */
 .listing-card {
-    background: var(--white);
-    border-radius: 20px;
+    background: var(--canvas-white);
+    border-radius: 14px;
     overflow: hidden;
     transition: var(--transition);
-    border: 1px solid var(--gray-200);
+    border: none;
     margin-bottom: 2rem;
 }
 
 .listing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-    border-color: var(--black);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .card-img-top {
@@ -64,34 +89,33 @@ html {
     height: 320px;
     object-fit: cover;
     transition: var(--transition);
-    filter: grayscale(0%);
+    border-radius: 14px;
 }
 
 .listing-card:hover .card-img-top {
-    filter: grayscale(0%);
     transform: scale(1.02);
 }
 
 .card-body {
-    padding: 1.5rem;
+    padding: 0.75rem 0;
 }
 
 .card-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: var(--black);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.3px;
+    color: var(--ink-black);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.18px;
 }
 
 .card-text {
-    color: var(--gray-600);
-    font-size: 0.95rem;
-    line-height: 1.5;
+    color: var(--ash-gray);
+    font-size: 0.875rem;
+    line-height: 1.43;
 }
 
 .card-text strong {
-    color: var(--black);
+    color: var(--ink-black);
     font-weight: 600;
 }
 
@@ -101,51 +125,52 @@ html {
     display: block;
 }
 
-/* Premium Buttons - Black & White */
+/* Premium Buttons - Airbnb Style */
 .btn {
-    border-radius: 12px;
-    padding: 0.75rem 2rem;
-    font-weight: 600;
-    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 0.875rem 1.5rem;
+    font-weight: 500;
+    font-size: 1rem;
     transition: var(--transition);
     border: none;
     cursor: pointer;
-    letter-spacing: -0.2px;
+    letter-spacing: 0;
 }
 
 .btn-primary, .add-btn, .edit-btn {
-    background: var(--black);
-    color: var(--white);
-    border: 1px solid var(--black);
+    background: var(--rausch);
+    color: var(--canvas-white);
+    border: 1px solid var(--rausch);
 }
 
 .btn-primary:hover, .add-btn:hover, .edit-btn:hover {
-    background: var(--gray-800);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    color: var(--white);
+    background: var(--deep-rausch);
+    transform: scale(0.92);
+    box-shadow: 0 0 0 2px var(--ink-black);
+    color: var(--canvas-white);
 }
 
 .btn-secondary, .btn-outline-dark {
     background: transparent;
-    color: var(--black);
-    border: 1px solid var(--gray-300);
+    color: var(--ink-black);
+    border: 1px solid var(--hairline-gray);
+    border-radius: 20px;
 }
 
 .btn-secondary:hover, .btn-outline-dark:hover {
-    background: var(--gray-100);
-    border-color: var(--black);
-    color: var(--black);
+    background: var(--soft-cloud);
+    border-color: var(--ink-black);
+    color: var(--ink-black);
 }
 
 .btn-dark {
-    background: var(--black);
-    color: var(--white);
+    background: var(--ink-black);
+    color: var(--canvas-white);
 }
 
 .btn-dark:hover {
-    background: var(--gray-800);
-    color: var(--white);
+    background: var(--charcoal);
+    color: var(--canvas-white);
 }
 
 /* Forms - Minimal Glass Effect */

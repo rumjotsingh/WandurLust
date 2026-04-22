@@ -1,42 +1,55 @@
  <style>
+  /* Airbnb-Style Flash Notifications */
   .flash-container {
     position: fixed;
-    top: 80px;
-    right: 20px;
+    top: 100px;
+    right: 24px;
     z-index: 9999;
-    max-width: 400px;
-    width: calc(100% - 40px);
+    max-width: 380px;
+    width: calc(100% - 48px);
   }
   
   .flash-alert {
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 1rem 1.25rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border: none;
-    animation: slideInRight 0.4s ease, fadeOut 0.3s ease 4.7s forwards;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0;
+    border: 1px solid #dddddd;
+    background: #ffffff;
+    animation: slideInRight 0.3s ease, fadeOut 0.3s ease 4.7s forwards;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-weight: 500;
+    font-size: 0.875rem;
+    color: #222222;
   }
   
   .flash-alert i {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
+    flex-shrink: 0;
   }
   
   .flash-success {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
+    background: #ffffff;
+    border-color: #dddddd;
+  }
+  
+  .flash-success i {
+    color: #008A05;
   }
   
   .flash-error {
-    background: linear-gradient(135deg, #dc3545 0%, #fe424d 100%);
-    color: white;
+    background: #ffffff;
+    border-color: #dddddd;
+  }
+  
+  .flash-error i {
+    color: #c13515;
   }
   
   .flash-alert .btn-close {
-    filter: brightness(0) invert(1);
-    opacity: 0.8;
+    opacity: 0.5;
+    font-size: 0.75rem;
   }
   
   .flash-alert .btn-close:hover {
@@ -63,31 +76,26 @@
   
   @media (max-width: 768px) {
     .flash-container {
-      top: 70px;
-      right: 10px;
-      left: 10px;
+      top: 90px;
+      right: 16px;
+      left: 16px;
       max-width: 100%;
       width: auto;
     }
     
     .flash-alert {
       padding: 0.875rem 1rem;
-      font-size: 0.9rem;
+      font-size: 0.8125rem;
     }
     
     .flash-alert i {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
   
   @media (max-width: 576px) {
     .flash-container {
-      top: 60px;
-    }
-    
-    .flash-alert {
-      padding: 0.75rem 0.875rem;
-      font-size: 0.85rem;
+      top: 90px;
     }
   }
 </style>

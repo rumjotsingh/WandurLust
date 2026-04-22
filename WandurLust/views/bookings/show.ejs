@@ -1,0 +1,673 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  /* Premium Booking Confirmation - Airbnb Style */
+  .confirmation-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #222222;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #000000;
+    gap: 0.75rem;
+  }
+
+  /* Success Header */
+  .success-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.6s ease;
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00a699 0%, #008a05 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: scaleIn 0.5s ease;
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  .success-icon i {
+    font-size: 2.5rem;
+    color: #ffffff;
+  }
+
+  .success-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .success-subtitle {
+    font-size: 1rem;
+    color: #6a6a6a;
+    font-weight: 400;
+  }
+
+  /* Status Badge */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  .status-badge.confirmed {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .status-badge.cancelled {
+    background: #ffebee;
+    color: #c62828;
+  }
+
+  .status-badge.completed {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+
+  /* Main Content Grid */
+  .confirmation-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* Left Column */
+  .booking-details {
+    animation: fadeInLeft 0.6s ease;
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .detail-card {
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .card-title i {
+    color: #6a6a6a;
+  }
+
+  /* Property Info */
+  .property-info-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .property-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .property-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.5rem;
+  }
+
+  .property-location {
+    font-size: 0.9375rem;
+    color: #6a6a6a;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .property-host {
+    font-size: 0.9375rem;
+    color: #222222;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .property-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: #222222;
+    border: 1px solid #222222;
+    padding: 0.625rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-outline:hover {
+    background: #f7f7f7;
+    color: #222222;
+  }
+
+  /* Trip Details */
+  .trip-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .detail-item {
+    padding: 1rem;
+    background: #f7f7f7;
+    border-radius: 8px;
+  }
+
+  .detail-label {
+    font-size: 0.8125rem;
+    color: #6a6a6a;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .detail-value {
+    font-size: 1rem;
+    color: #222222;
+    font-weight: 600;
+  }
+
+  .detail-value-large {
+    font-size: 1.125rem;
+    color: #222222;
+    font-weight: 700;
+  }
+
+  /* Price Breakdown */
+  .price-breakdown {
+    padding: 1.5rem;
+    background: #f7f7f7;
+    border-radius: 8px;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #222222;
+  }
+
+  .price-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .price-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 2px solid #dddddd;
+    margin-top: 1rem;
+  }
+
+  .price-total-label {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #222222;
+  }
+
+  .price-total-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222222;
+  }
+
+  /* Booking Info */
+  .booking-info {
+    padding: 1rem;
+    background: #f7f7f7;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #6a6a6a;
+  }
+
+  .booking-id {
+    font-family: 'Courier New', monospace;
+    color: #222222;
+    font-weight: 600;
+  }
+
+  /* Right Column - Sticky Card */
+  .action-card {
+    position: sticky;
+    top: 100px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    padding: 2rem;
+    animation: fadeInRight 0.6s ease;
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .action-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 1.5rem;
+  }
+
+  .action-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .action-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .action-item:last-child {
+    border-bottom: none;
+  }
+
+  .action-icon {
+    width: 40px;
+    height: 40px;
+    background: #f7f7f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .action-icon i {
+    color: #222222;
+    font-size: 1rem;
+  }
+
+  .action-content {
+    flex: 1;
+  }
+
+  .action-content h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #222222;
+    margin-bottom: 0.25rem;
+  }
+
+  .action-content p {
+    font-size: 0.8125rem;
+    color: #6a6a6a;
+    margin: 0;
+  }
+
+  /* Cancel Button */
+  .btn-cancel {
+    width: 100%;
+    background: transparent;
+    color: #c62828;
+    border: 1px solid #c62828;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-cancel:hover {
+    background: #c62828;
+    color: #ffffff;
+  }
+
+  .cancel-info {
+    font-size: 0.8125rem;
+    color: #6a6a6a;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .confirmation-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .action-card {
+      position: relative;
+      top: 0;
+    }
+
+    .trip-details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .confirmation-container {
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .success-title {
+      font-size: 1.75rem;
+    }
+
+    .property-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .property-image {
+      width: 100%;
+      height: 200px;
+    }
+
+    .detail-card {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .confirmation-container {
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    .success-title {
+      font-size: 1.5rem;
+    }
+
+    .property-actions {
+      flex-direction: column;
+    }
+
+    .btn-outline {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<div class="confirmation-container">
+  <a href="/bookings" class="back-link">
+    <i class="fa-solid fa-arrow-left"></i>
+    Back to my trips
+  </a>
+
+  <!-- Success Header -->
+  <div class="success-header">
+    <% if (booking.status === 'confirmed') { %>
+      <div class="success-icon">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h1 class="success-title">Booking confirmed!</h1>
+      <p class="success-subtitle">Your reservation is all set. We've sent the details to your email.</p>
+      <span class="status-badge confirmed">
+        <i class="fa-solid fa-circle-check"></i>
+        Confirmed
+      </span>
+    <% } else if (booking.status === 'cancelled') { %>
+      <div class="success-icon" style="background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%);">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <h1 class="success-title">Booking cancelled</h1>
+      <p class="success-subtitle">This reservation has been cancelled.</p>
+      <span class="status-badge cancelled">
+        <i class="fa-solid fa-circle-xmark"></i>
+        Cancelled
+      </span>
+    <% } else { %>
+      <div class="success-icon" style="background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);">
+        <i class="fa-solid fa-info"></i>
+      </div>
+      <h1 class="success-title">Booking <%= booking.status %></h1>
+      <span class="status-badge completed">
+        <%= booking.status %>
+      </span>
+    <% } %>
+  </div>
+
+  <div class="confirmation-grid">
+    <!-- Left Column - Details -->
+    <div class="booking-details">
+      <!-- Property Card -->
+      <% if (booking.listing) { %>
+        <div class="detail-card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-home"></i>
+            Your accommodation
+          </h2>
+          <div class="property-info-grid">
+            <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>" class="property-image">
+            <div class="property-content">
+              <h3><%= booking.listing.title %></h3>
+              <p class="property-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <%= booking.listing.location %>, <%= booking.listing.country %>
+              </p>
+              <p class="property-host">
+                <i class="fa-solid fa-user"></i>
+                Hosted by <%= booking.listing.owner.username %>
+              </p>
+              <div class="property-actions">
+                <a href="/listings/<%= booking.listing._id %>" class="btn-outline">
+                  <i class="fa-solid fa-eye"></i>
+                  View listing
+                </a>
+                <a href="/messages/conversation/<%= booking.listing.owner._id %>" class="btn-outline">
+                  <i class="fa-solid fa-envelope"></i>
+                  Message host
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+      <!-- Trip Details Card -->
+      <div class="detail-card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-calendar-days"></i>
+          Trip details
+        </h2>
+        <div class="trip-details-grid">
+          <div class="detail-item">
+            <div class="detail-label">Check-in</div>
+            <div class="detail-value-large">
+              <%= new Date(booking.checkIn).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+            </div>
+            <div class="detail-value" style="font-size: 0.875rem; color: #6a6a6a; margin-top: 0.25rem;">
+              <%= new Date(booking.checkIn).toLocaleDateString('en-US', { weekday: 'long' }) %>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Check-out</div>
+            <div class="detail-value-large">
+              <%= new Date(booking.checkOut).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+            </div>
+            <div class="detail-value" style="font-size: 0.875rem; color: #6a6a6a; margin-top: 0.25rem;">
+              <%= new Date(booking.checkOut).toLocaleDateString('en-US', { weekday: 'long' }) %>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Duration</div>
+            <div class="detail-value-large">
+              <%= booking.numberOfNights %> <%= booking.numberOfNights === 1 ? 'night' : 'nights' %>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Guests</div>
+            <div class="detail-value-large">
+              <%= booking.guests %> <%= booking.guests === 1 ? 'guest' : 'guests' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price Card -->
+      <div class="detail-card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-receipt"></i>
+          Price details
+        </h2>
+        <div class="price-breakdown">
+          <div class="price-row">
+            <span>₹<%= (booking.totalPrice / booking.numberOfNights).toLocaleString('en-IN') %> × <%= booking.numberOfNights %> <%= booking.numberOfNights === 1 ? 'night' : 'nights' %></span>
+            <span>₹<%= booking.totalPrice.toLocaleString('en-IN') %></span>
+          </div>
+          <div class="price-total">
+            <span class="price-total-label">Total (INR)</span>
+            <span class="price-total-amount">₹<%= booking.totalPrice.toLocaleString('en-IN') %></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Info -->
+      <div class="booking-info">
+        <strong>Booking reference:</strong> <span class="booking-id"><%= booking._id %></span><br>
+        <strong>Booked on:</strong> <%= new Date(booking.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>
+      </div>
+    </div>
+
+    <!-- Right Column - Actions -->
+    <div class="action-card">
+      <h3 class="action-title">What's next?</h3>
+      <ul class="action-list">
+        <li class="action-item">
+          <div class="action-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div class="action-content">
+            <h4>Check your email</h4>
+            <p>We sent a confirmation with all the details</p>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-icon">
+            <i class="fa-solid fa-message"></i>
+          </div>
+          <div class="action-content">
+            <h4>Contact your host</h4>
+            <p>Ask questions about check-in or amenities</p>
+          </div>
+        </li>
+        <li class="action-item">
+          <div class="action-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <div class="action-content">
+            <h4>Prepare for your trip</h4>
+            <p>Review house rules and cancellation policy</p>
+          </div>
+        </li>
+      </ul>
+
+      <% if (booking.status === 'confirmed' && new Date(booking.checkIn) > new Date()) { %>
+        <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to cancel this booking? This action cannot be undone.');">
+          <button type="submit" class="btn-cancel">
+            <i class="fa-solid fa-ban"></i>
+            Cancel reservation
+          </button>
+        </form>
+        <p class="cancel-info">
+          Free cancellation before check-in. You'll get a full refund if you cancel now.
+        </p>
+      <% } %>
+    </div>
+  </div>
+</div>

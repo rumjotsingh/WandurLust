@@ -4,6 +4,11 @@ const wrapAsync=require("../utilis/wrapAsync.js");
 const router=express.Router();
 const {saveRedirectUrl, isLoggedIn}=require("../middleware.js");
 const usercontrollers=require("../controllers/user.js");
+const listingcontrollers=require("../controllers/listing.js");
+
+// Home page route
+router.get("/", wrapAsync(listingcontrollers.index));
+
 router.route("/login")
 .get(usercontrollers.renderlogin)
 .post(saveRedirectUrl,passport.authenticate("local",{failureRedirect:'/login',failureFlash:true}),usercontrollers.userauth);

@@ -1,6 +1,7 @@
 <%layout("/layouts/boilerplate")%>
 
 <style>
+    /* Airbnb-Style Auth Container */
     .auth-container {
         min-height: 80vh;
         display: flex;
@@ -10,13 +11,12 @@
     }
     
     .auth-card {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 14px;
+        box-shadow: rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0;
         overflow: hidden;
-        max-width: 480px;
+        max-width: 568px;
         width: 100%;
         animation: fadeInUp 0.6s ease;
     }
@@ -33,51 +33,55 @@
     }
     
     .auth-header {
-        background: var(--black);
-        color: var(--white);
-        padding: 3rem 2.5rem;
-        text-align: center;
+        background: #ffffff;
+        color: #222222;
+        padding: 2rem 2rem 1.5rem;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
     }
     
     .auth-header h1 {
-        font-size: 2rem;
-        font-weight: 800;
+        font-size: 1.375rem;
+        font-weight: 600;
         margin: 0;
-        letter-spacing: -1px;
+        letter-spacing: -0.44px;
+        color: #222222;
     }
     
     .auth-header p {
-        margin: 0.75rem 0 0 0;
-        opacity: 0.7;
-        font-size: 0.95rem;
+        margin: 0.5rem 0 0 0;
+        color: #6a6a6a;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
     
     .auth-body {
-        padding: 2.5rem;
+        padding: 1.5rem 2rem 2rem;
     }
     
-    /* Demo Banner - Black & White */
+    /* Demo Banner - Airbnb Style */
     .demo-banner {
-        background: var(--gray-900);
-        border-radius: 16px;
-        padding: 1.5rem;
+        background: #f7f7f7;
+        border-radius: 14px;
+        padding: 1rem;
         display: flex;
         align-items: center;
         gap: 1rem;
-        margin-bottom: 2rem;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+        border: 1px solid #dddddd;
     }
 
     .demo-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--white);
-        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+        background: #222222;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--black);
-        font-size: 1.5rem;
+        color: #ffffff;
+        font-size: 1.25rem;
+        flex-shrink: 0;
     }
 
     .demo-content {
@@ -85,40 +89,41 @@
     }
 
     .demo-content h5 {
-        color: var(--white);
+        color: #222222;
         margin: 0;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: -0.3px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: 0;
     }
 
     .demo-content p {
-        color: rgba(255, 255, 255, 0.7);
+        color: #6a6a6a;
         margin: 0;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+        font-weight: 500;
     }
 
     .btn-demo {
-        background: var(--white);
-        color: var(--black);
+        background: #222222;
+        color: #ffffff;
         border: none;
-        border-radius: 10px;
-        padding: 0.6rem 1.25rem;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         cursor: pointer;
         transition: all 0.3s ease;
         white-space: nowrap;
     }
 
     .btn-demo:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+        background: #000000;
+        transform: scale(0.96);
     }
 
     .divider {
         text-align: center;
-        margin: 2rem 0;
+        margin: 1.5rem 0;
         position: relative;
     }
 
@@ -129,14 +134,15 @@
         left: 0;
         right: 0;
         height: 1px;
-        background: var(--gray-200);
+        background: #dddddd;
     }
 
     .divider span {
-        background: rgba(255, 255, 255, 0.8);
+        background: #ffffff;
         padding: 0 1rem;
-        color: var(--gray-500);
-        font-size: 0.85rem;
+        color: #6a6a6a;
+        font-size: 0.75rem;
+        font-weight: 500;
         position: relative;
         z-index: 1;
     }
@@ -147,67 +153,69 @@
     
     .form-label {
         font-weight: 600;
-        color: var(--black);
+        color: #222222;
         margin-bottom: 0.5rem;
         display: block;
-        font-size: 0.9rem;
-        letter-spacing: -0.2px;
+        font-size: 0.75rem;
+        letter-spacing: 0;
     }
     
     .form-control {
-        border-radius: 12px;
-        border: 1px solid var(--gray-300);
-        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border: 1px solid #dddddd;
+        padding: 0.6875rem 0.75rem;
         font-size: 1rem;
-        transition: all 0.3s ease;
-        background: rgba(0, 0, 0, 0.02);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        background: #ffffff;
+        color: #222222;
     }
     
     .form-control:focus {
-        border-color: var(--black);
-        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
-        background: var(--white);
+        border-color: #222222;
+        box-shadow: none;
+        background: #ffffff;
+        outline: none;
     }
     
     .btn-auth {
         width: 100%;
-        background: var(--black);
-        color: var(--white);
+        background: linear-gradient(90deg, #ff385c 0%, #e00b41 50%, #92174d 100%);
+        color: #ffffff;
         border: none;
-        border-radius: 12px;
+        border-radius: 8px;
         padding: 0.875rem;
         font-size: 1rem;
         font-weight: 600;
         transition: all 0.3s ease;
-        margin-top: 1rem;
-        letter-spacing: -0.2px;
+        margin-top: 0.5rem;
+        letter-spacing: 0;
     }
     
     .btn-auth:hover {
-        background: var(--gray-800);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        color: var(--white);
+        transform: scale(0.98);
+        color: #ffffff;
     }
     
     .auth-footer {
         text-align: center;
-        padding: 1.5rem 2.5rem;
-        background: var(--gray-50);
-        border-top: 1px solid var(--gray-200);
+        padding: 1rem 2rem;
+        background: #f7f7f7;
+        border-top: 1px solid #dddddd;
     }
     
     .auth-footer p {
         margin: 0;
-        color: var(--gray-600);
-        font-size: 0.95rem;
+        color: #222222;
+        font-size: 0.875rem;
+        font-weight: 500;
     }
     
     .auth-footer a {
-        color: var(--black);
+        color: #222222;
         font-weight: 600;
-        text-decoration: none;
-        transition: opacity 0.3s ease;
+        text-decoration: underline;
+        transition: opacity 0.2s ease;
     }
     
     .auth-footer a:hover {
@@ -216,15 +224,15 @@
     
     @media (max-width: 576px) {
         .auth-header h1 {
-            font-size: 1.75rem;
+            font-size: 1.25rem;
         }
         
         .auth-body {
-            padding: 2rem 1.5rem;
+            padding: 1.5rem;
         }
         
         .auth-header {
-            padding: 2.5rem 1.5rem;
+            padding: 1.5rem;
         }
 
         .demo-banner {
@@ -241,8 +249,8 @@
 <div class="auth-container">
     <div class="auth-card">
         <div class="auth-header">
-            <h1>Welcome Back</h1>
-            <p>Sign in to continue your journey</p>
+            <h1>Log in</h1>
+            <p>Welcome back to WandurLust</p>
         </div>
         
         <div class="auth-body">
@@ -253,56 +261,53 @@
                 </div>
                 <div class="demo-content">
                     <h5>Try Demo Account</h5>
-                    <p>Experience WandurLust instantly</p>
+                    <p>Quick access with demo credentials</p>
                 </div>
                 <button type="button" class="btn-demo" onclick="fillDemoCredentials()">
-                    <i class="fa-solid fa-arrow-right"></i> Quick Demo
+                    Demo
                 </button>
             </div>
 
             <div class="divider">
-                <span>or sign in with your account</span>
+                <span>or</span>
             </div>
             
             <form action="/login" method="post" class="needs-validation" novalidate>
                 <div class="form-group">
-                    <label for="username" class="form-label">Username</label>
-                    <input name="username" id="username" type="text" class="form-control" placeholder="Enter your username" required>
+                    <label for="username" class="form-label">USERNAME</label>
+                    <input name="username" id="username" type="text" class="form-control" placeholder="Username" required>
                     <div class="invalid-feedback">Please enter your username.</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input name="password" id="password" type="password" class="form-control" placeholder="Enter your password" required>
+                    <label for="password" class="form-label">PASSWORD</label>
+                    <input name="password" id="password" type="password" class="form-control" placeholder="Password" required>
                     <div class="invalid-feedback">Please enter your password.</div>
                 </div>
                 
                 <button class="btn btn-auth">
-                    Sign In
+                    Log in
                 </button>
             </form>
         </div>
         
         <div class="auth-footer">
-            <p>Don't have an account? <a href="/signup">Create one</a></p>
+            <p>Don't have an account? <a href="/signup">Sign up</a></p>
         </div>
     </div>
 </div>
 
 <script>
     function fillDemoCredentials() {
-        // Fill in the demo credentials
         document.getElementById('username').value = 'demo';
         document.getElementById('password').value = 'demo123';
         
         const demoBtn = document.querySelector('.btn-demo');
         const originalHTML = demoBtn.innerHTML;
         
-        // Show success state
-        demoBtn.innerHTML = '<i class="fa-solid fa-check"></i> Ready!';
-        demoBtn.style.background = 'var(--gray-200)';
+        demoBtn.innerHTML = '<i class="fa-solid fa-check"></i> Ready';
+        demoBtn.style.background = '#008A05';
         
-        // Auto-submit the form after a brief moment
         setTimeout(() => {
             document.querySelector('form[action="/login"]').submit();
         }, 500);
